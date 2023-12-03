@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">MediScanner_Firebase</string>
+    <string name="medication">Medikation</string>
+    <string name="overview_medication">Überblick Medikamente</string>
+    <string name="camera">Kamera</string>
+    <string name="gallery">Gallerie</string>
+    <string name="label">Firma</string>
+    <string name="title">Titel</string>
+    <string name="dosage">Dosierung</string>
+    <string name="intake">Einnahme</string>
+</resources>

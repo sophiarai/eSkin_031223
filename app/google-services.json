@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "979787157807",
+    "project_id": "mediscanner-firebase",
+    "storage_bucket": "mediscanner-firebase.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:979787157807:android:c57ac0e4b9efbf4d1b51da",
+        "android_client_info": {
+          "package_name": "com.example.mediscanner_firebase"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDMqOS_di8M2EBdZ4bWpwQAH14pVwY2AIc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

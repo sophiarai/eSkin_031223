@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">MediScanner_Firebase</string>
+    <string name="medication">Medication</string>
+    <string name="overview_medication">Overview Medication</string>
+    <string name="camera">Camera</string>
+    <string name="gallery">Gallery</string>
+    <string name="scan" translatable="false">Scan</string>
+    <string name="label">Label</string>
+    <string name="title">Title</string>
+    <string name="dosage">Dosage</string>
+    <string name="intake">Intake</string>
+</resources>

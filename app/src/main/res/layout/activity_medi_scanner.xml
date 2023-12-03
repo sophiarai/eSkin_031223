@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp"
+    tools:context=".MediScanner"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="50dp">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/camera_Btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:text="@string/camera"
+                android:layout_marginEnd="5dp"
+                android:layout_weight="1"
+                tools:ignore="VisualLintButtonSize"
+                android:backgroundTint="@color/blue"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/gallery_Btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:layout_weight="1"
+                android:layout_marginStart="5dp"
+                android:text="@string/gallery"
+                tools:ignore="VisualLintButtonSize"
+                android:backgroundTint="@color/blue"/>
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/imageIV"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_scan"
+            android:adjustViewBounds="true"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/scanBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/scan"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            tools:ignore="VisualLintButtonSize"
+            android:backgroundTint="@color/blue"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/TextAppearance.MaterialComponents.Body1"
+                    android:text="@string/label"
+                    android:textStyle="bold"/>
+
+                <EditText
+                    android:id="@+id/label_Tv"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="47dp"
+                    android:textSize="20sp"
+                    android:importantForAccessibility="no"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/TextAppearance.MaterialComponents.Body1"
+                    android:text="@string/title"
+                    android:textStyle="bold"/>
+
+                <EditText
+                    android:id="@+id/titel_Tv"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="52dp"
+                    android:textSize="20sp"
+                    android:importantForAccessibility="no"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/TextAppearance.MaterialComponents.Body1"
+                    android:text="@string/dosage"
+                    android:textStyle="bold"/>
+
+                <EditText
+                    android:id="@+id/dosierung_Tv"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="30dp"
+                    android:textSize="20sp"
+                    android:importantForAccessibility="no"/>
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginEnd="20dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/TextAppearance.MaterialComponents.Body1"
+                    android:text="@string/intake"
+                    android:textStyle="bold"/>
+
+
+            </LinearLayout>
+            <!-- Hier beginnt der Abschnitt für MO, MI, AB und NA -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/TextAppearance.MaterialComponents.Body1"
+                    android:text="Mo"
+                    />
+
+                <EditText
+                    android:id="@+id/moEditText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:hint="0"
+                    android:minHeight="48dp"
+                    tools:ignore="TouchTargetSizeCheck" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/TextAppearance.MaterialComponents.Body1"
+                    android:text="Mi"
+                    />
+
+                <EditText
+                    android:id="@+id/miEditText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:hint="0"
+                    tools:ignore="TouchTargetSizeCheck" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/TextAppearance.MaterialComponents.Body1"
+                    android:text="Ab"
+                    />
+
+                <EditText
+                    android:id="@+id/abEditText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:hint="0"
+                    android:minHeight="48dp"
+                    tools:ignore="TouchTargetSizeCheck" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/TextAppearance.MaterialComponents.Body1"
+                    android:text="Na"
+                    />
+
+                <EditText
+                    android:id="@+id/naEditText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:hint="0"
+                    tools:ignore="TouchTargetSizeCheck" />
+            </LinearLayout>
+            <!-- Ende des Abschnitts für MO, MI, AB und NA -->
+
+        </LinearLayout>
+        <Button
+            android:id="@+id/button_hinzufügen"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Speichern"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="30dp"
+            android:layout_gravity="center"
+            android:backgroundTint="@color/blue"
+            />
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/backButton"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Zurück"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            app:icon="@drawable/ic_back"
+            android:layout_marginTop="30dp"
+            android:backgroundTint="@color/blue"
+            />
+    </LinearLayout>
+
+
+
+
+</ScrollView>
