@@ -15,14 +15,40 @@
 
         <include
             layout="@layout/toolbar"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        <ImageView
+            android:id="@+id/myImageView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/toolbar"
+            android:layout_above="@id/calendarView"
+            android:src="@drawable/calendar"
+            android:scaleType="centerCrop"
+            android:adjustViewBounds="true"/>
+
         <TextView
+            android:id="@+id/textView_Medikamente"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="100dp"
             android:text="Calendar"
-            android:layout_gravity="center"
-            android:layout_marginTop="250dp"
-            android:textColor="@color/black"
-            android:textSize="36sp"/>
+            android:textSize="30sp"
+            android:textStyle="bold"
+            tools:ignore="TextSizeCheck" />
+
+            <CalendarView
+                android:id="@+id/calendarView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/textView_Medikamente"
+                android:layout_marginTop="20dp"
+                android:layout_centerInParent="true"
+                 />
+         </RelativeLayout>
     </LinearLayout>
 
     <RelativeLayout

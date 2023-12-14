@@ -11,4 +11,11 @@
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">50%</item>
     </style>
+
+    <style name="CalendarViewTheme" parent="Theme.AppCompat">
+        <!-- Hier kannst du verschiedene Eigenschaften für das Kalenderdesign festlegen -->
+        <item name="android:colorPrimary">@color/colorPrimary</item>
+        <item name="android:colorAccent">@color/colorAccent</item>
+        <!-- Weitere Attribute können hinzugefügt werden -->
+    </style>
 </resources>

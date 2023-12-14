@@ -17,14 +17,37 @@
             layout="@layout/toolbar"/>
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+            android:layout_height="match_parent">
+            <ImageView
+                android:id="@+id/myImageView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/toolbar"
+                android:layout_above="@id/search"
+                android:src="@drawable/dokumentation"
+                android:scaleType="centerCrop"
+                android:adjustViewBounds="true"/>
+
+            <TextView
+                android:id="@+id/textView_Medikamente"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="100dp"
+                android:text="Wunddokumentation"
+                android:textSize="30sp"
+                android:textStyle="bold"
+                tools:ignore="TextSizeCheck" />
 
 
 
-        <androidx.appcompat.widget.SearchView
+
+            <androidx.appcompat.widget.SearchView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+                android:layout_marginTop="20dp"
+                android:layout_below="@id/textView_Medikamente"
             android:layout_marginStart="12dp"
             android:layout_marginEnd="12dp"
             android:id="@+id/search"
