@@ -1,4 +1,4 @@
-package com.example.mediscanner_firebase;
+package com.example.mediscanner_firebase.Sophia;
 
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
@@ -27,6 +27,9 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import okhttp3.Response;
+
+import com.example.mediscanner_firebase.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -40,8 +43,18 @@ import com.google.mlkit.vision.barcode.BarcodeScanning;
 import com.google.mlkit.vision.barcode.common.Barcode;
 import com.google.mlkit.vision.common.InputImage;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
+
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Callback;
+
+
 
 public class MediScanner extends AppCompatActivity {
     DatabaseReference databaseReference;
@@ -94,9 +107,15 @@ public class MediScanner extends AppCompatActivity {
         storagePermissions = new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE};
 
         barcodeScannerOptions= new BarcodeScannerOptions.Builder().setBarcodeFormats(Barcode.FORMAT_ALL_FORMATS).build();
+        barcodeScannerOptions = new BarcodeScannerOptions.Builder().setBarcodeFormats(Barcode.FORMAT_QR_CODE).build();
+
         barcodeScanner= BarcodeScanning.getClient(barcodeScannerOptions);
 
         databaseReference= FirebaseDatabase.getInstance().getReference("medication");
+
+        if (!checkStoragePermission()) {
+            requestStoragePermission();
+        }
 
         hinzufuegenButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -230,98 +249,43 @@ public class MediScanner extends AppCompatActivity {
 
 
 
-    private void detectResultFromImage(){
+    private void detectResultFromImage() {
         try {
-            InputImage inputImage= InputImage.fromFilePath(this, imageUri);
-            Task<List<Barcode>> barcodeResult= barcodeScanner.process(inputImage).addOnSuccessListener(new OnSuccessListener<List<Barcode>>() {
-                @Override
-                public void onSuccess(List<Barcode> barcodes) {
-                    extractBarCodeQRCodeInfo(barcodes);
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(MediScanner.this, "Failed scanning due to "+e.getMessage(), Toast.LENGTH_SHORT).show();
-                }
-            });
-        }catch (Exception e){
-            Toast.makeText(MediScanner.this, "Failed due to "+e.getMessage(), Toast.LENGTH_SHORT).show();
+            if (imageUri != null) {
+                InputImage inputImage = InputImage.fromFilePath(this, imageUri);
+                Task<List<Barcode>> barcodeResult = barcodeScanner.process(inputImage).addOnSuccessListener(new OnSuccessListener<List<Barcode>>() {
+                    @Override
+                    public void onSuccess(List<Barcode> barcodes) {
+                        extractBarCodeQRCodeInfo(barcodes);
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(MediScanner.this, "Failed scanning due to " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+            } else {
+                Toast.makeText(MediScanner.this, "Image URI is null", Toast.LENGTH_SHORT).show();
+            }
+        } catch (Exception e) {
+            Toast.makeText(MediScanner.this, "Failed due to " + e.getMessage(), Toast.LENGTH_SHORT).show();
         }
     }
+
+
     //OLDA Keine Ahnung muss schaun (brauche ich glaub ich nicht alles)
-    private void extractBarCodeQRCodeInfo (List<Barcode>barcodes){
-        for(Barcode barcode: barcodes){
-            Rect bounds= barcode.getBoundingBox();
-            Point[] corners= barcode.getCornerPoints();
-
-            String rawValue= barcode.getRawValue();
+    private void extractBarCodeQRCodeInfo(List<Barcode> barcodes) {
+        for (Barcode barcode : barcodes) {
+            Rect bounds = barcode.getBoundingBox();
+            Point[] corners = barcode.getCornerPoints();
+            String rawValue = barcode.getRawValue();
             Log.d(TAG, "extractBarCodeQRCodeInfos: rawValue: " + rawValue);
+            int valueType = barcode.getValueType();
 
-            int valueType= barcode.getValueType();
-
-            switch (valueType){
-                case Barcode.TYPE_WIFI:{
-                    Barcode.WiFi typeWifi= barcode.getWifi();
-                    String ssid=""+typeWifi.getSsid();
-                    String password=""+typeWifi.getPassword();
-                    String encryptionType=""+typeWifi.getEncryptionType();
-
-                    Log.d(TAG, "extraBarCodeQRCodeInfo: ssid:  "+ ssid);
-                    Log.d(TAG, "extraBarCodeQRCodeInfo: password:  "+ password);
-                    Log.d(TAG, "extraBarCodeQRCodeInfo: encryptionType:  "+ encryptionType);
-
-                    resultLabel.setText("TYPE: TYPE_WIFI \nssid: "+ssid+"\npassword: "+password+"\nencryptionType"+encryptionType+"\nraw value: "+ rawValue);
-                }break;
-                case Barcode.TYPE_URL:{
-                    Barcode.UrlBookmark typeUrl= barcode.getUrl();
-
-                    String title=""+typeUrl.getTitle();
-                    String url=""+typeUrl.getUrl();
-
-                    Log.d(TAG, "extractBarCodeQRCodeInfo: TYPE_URL");
-                    Log.d(TAG, "extractBarCodeQRCodeInfo: title: "+title);
-                    Log.d(TAG, "extractBarCodeQRCodeInfo: url: "+url);
-
-                    resultLabel.setText("TYPE: TYPE_URL \ntitle: "+title+"\nurl: "+url+"\nraw value: "+ rawValue);
-                }break;
-                case Barcode.TYPE_EMAIL:{
-                    Barcode.Email typeEmail= barcode.getEmail();
-
-                    String address=""+typeEmail.getAddress();
-                    String body=""+typeEmail.getBody();
-                    String subject=""+typeEmail.getSubject();
-
-
-                    Log.d(TAG, "extractBarCodeQRCodeInfo: TYPE_EMAIL");
-                    Log.d(TAG, "extractBarCodeQRCodeInfo: address: "+address);
-                    Log.d(TAG, "extractBarCodeQRCodeInfo: body: "+body);
-                    Log.d(TAG, "extractBarCodeQRCodeInfo: subject: "+subject);
-
-                    resultLabel.setText("TYPE: TYPE_EMAIL \naddress: "+address+"\nbody: "+body+"\nsubject: "+subject+"\nraw value: "+ rawValue);
-                }break;
-                case Barcode.TYPE_CONTACT_INFO:{
-                    Barcode.ContactInfo typeContact= barcode.getContactInfo();
-
-                    String title=""+typeContact.getTitle();
-                    String organizer=""+typeContact.getOrganization();
-                    String name=""+typeContact.getName().getFirst()+" "+typeContact.getName().getLast();
-                    String phones=""+typeContact.getPhones().get(0).getNumber();
-
-
-                    Log.d(TAG, "extractBarCodeQRCodeInfo: TYPE_CONTACT_INFO");
-                    Log.d(TAG, "extractBarCodeQRCodeInfo: title: "+title);
-                    Log.d(TAG, "extractBarCodeQRCodeInfo: organizer: "+organizer);
-                    Log.d(TAG, "extractBarCodeQRCodeInfo: name: "+name);
-                    Log.d(TAG, "extractBarCodeQRCodeInfo: phones: "+phones);
-
-                    resultLabel.setText("TYPE: TYPE_CONTACT_INFO \ntitle: "+title+"\norganizer: "+organizer+"\nname: "+name+"\nphones: "+phones+"\nraw value: "+ rawValue);
-                }break;
-                //Alles darüber werde ich nicht brauchen, aber dafür kommt dann hier dei API rein
-               /* case Barcode.TYPE_PRODUCT: {
-                    // Barcode an die OpenFoodFacts-API senden und Informationen abrufen
-                    // Beispiel-URL: https://world.openfoodfacts.org/api/v0/product/{barcode}.json
-                    String apiUrl = "https://world.openfoodfacts.org/api/v0/product/" + rawValue + ".json";
-
+            switch (valueType) {
+                case Barcode.TYPE_PRODUCT: {
+                    // Barcode an die Medipim-API senden und Informationen abrufen
+                    String apiUrl = "https://api.medipim.be/v4/" + rawValue;
 
                     OkHttpClient client = new OkHttpClient();
                     Request request = new Request.Builder()
@@ -330,30 +294,21 @@ public class MediScanner extends AppCompatActivity {
 
                     client.newCall(request).enqueue(new Callback() {
                         @Override
-                        public void onFailure(Call call, IOException e) {
-                            // Fehlerbehandlung
-                        }
-
-                        @Override
-                        public void onResponse(Call call, Response response) throws IOException {
+                        public void onResponse(@NonNull okhttp3.Call call, @NonNull Response response) throws IOException {
                             if (response.isSuccessful()) {
                                 try {
                                     String jsonData = response.body().string();
-
                                     JSONObject jsonObject = new JSONObject(jsonData);
-                                    JSONObject product = jsonObject.getJSONObject("product");
-                                    JSONObject nutriments = product.getJSONObject("nutriments");
-                                    String calories = nutriments.getString("energy-kcal");
 
-                                    totalCalories += Integer.parseInt(calories);
-                                    saveTotalCalories(totalCalories);
+                                    // Hier die relevanten Informationen aus dem JSON extrahieren
+                                    String productName = jsonObject.getString("name");
+                                    String company = jsonObject.getJSONObject("manufacturer").getString("name");
 
                                     runOnUiThread(new Runnable() {
                                         @Override
                                         public void run() {
-                                            tvScankcal.setText(getString(R.string.total_calories) + totalCalories);
-                                            resultTv.setText(getString(R.string.kalorien) + calories);
-
+                                            resultLabel.setText("Produkt: " + productName);
+                                            resultTitel.setText("Firma: " + company);
                                         }
                                     });
                                 } catch (JSONException e) {
@@ -361,68 +316,88 @@ public class MediScanner extends AppCompatActivity {
                                 }
                             }
                         }
+
+                        @Override
+                        public void onFailure(@NonNull okhttp3.Call call, @NonNull IOException e) {
+                            Log.e(TAG, "API request failed: " + e.getMessage());
+                        }
                     });
 
-                    break;} */
+                    break;
+                }
                 default: {
-                    resultLabel.setText("raw value: " + rawValue);
-
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            resultLabel.setText("raw value: " + rawValue);
+                            resultTitel.setText("rawValue: " + rawValue);
+                        }
+                    });
                 }
             }
         }
     }
 
+
     private void pickImageGallery() {
-        Intent intent = new Intent(Intent.ACTION_PICK);
+        Log.d(TAG, "pickImageGallery: Trying to pick image from gallery");
+        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
         intent.setType("image/*");
         galleryActivityResultLauncher.launch(intent);
     }
 
-    private final ActivityResultLauncher<Intent> galleryActivityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
-        @Override
-        public void onActivityResult(ActivityResult result) {
-            if(result.getResultCode()== Activity.RESULT_OK){
-                Intent data = result.getData();
-                imageUri=data.getData();
-                Log.d(TAG, "onActivityResult: imageUri: "+imageUri);
-                //set to imageview
-                imageIv.setImageURI(imageUri);
-            }else{
-                Toast.makeText(MediScanner.this, "Cancelled", Toast.LENGTH_SHORT).show();
+    private final ActivityResultLauncher<Intent> galleryActivityResultLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    if (result.getResultCode() == Activity.RESULT_OK) {
+                        Intent data = result.getData();
+                        if (data != null) {
+                            // URI der ausgewählten Datei
+                            imageUri = data.getData();
+                            Log.d(TAG, "onActivityResult: imageUri: " + imageUri);
+                            // Bild in ImageView setzen
+                            imageIv.setImageURI(imageUri);
+                        }
+                    } else {
+                        Toast.makeText(MediScanner.this, "Cancelled", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+    private final ActivityResultLauncher <Intent> cameraActivityResultLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    if (result.getResultCode()==Activity.RESULT_OK){
+                        Intent data = result.getData();
+                        Log.d(TAG, "onActivityResult: imageUri: "+ imageUri);
+                        imageIv.setImageURI(imageUri);
+                    }else{
+                        Toast.makeText(MediScanner.this, "Cancelled", Toast.LENGTH_SHORT).show();
+                    }
+
+                }
             }
-        }
-    });
-    private final ActivityResultLauncher<Intent> cameraActivityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
-        @Override
-        public void onActivityResult(ActivityResult result) {
-            if(result.getResultCode()== Activity.RESULT_OK){
-                Intent data = result.getData();
-                Log.d(TAG, "onActivityResult: imageUri: "+imageUri);
-                //set to imageview
-                imageIv.setImageURI(imageUri);
-            }else{
-                Toast.makeText(MediScanner.this, "Cancelled", Toast.LENGTH_SHORT).show();
-            }
-        }
-    });
+    );
     private void pickImageCamera(){
         ContentValues contentValues= new ContentValues();
         contentValues.put(MediaStore.Images.Media.TITLE, "Sample Title");
         contentValues.put(MediaStore.Images.Media.DESCRIPTION, "Sample Image Description");
 
-        imageUri = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues);
-
+        imageUri= getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues);
         Intent intent= new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
+        intent.putExtra(MediaStore.EXTRA_OUTPUT,imageUri);
         cameraActivityResultLauncher.launch(intent);
     }
 
     private boolean checkStoragePermission(){
-        boolean result= ContextCompat.checkSelfPermission(MediScanner.this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE)== PackageManager.PERMISSION_GRANTED;
+        boolean result= ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)== PackageManager.PERMISSION_GRANTED;
         return result;
     }
 
-    private void requestStoragePermission(){
+    private void  requestStoragePermission(){
         ActivityCompat.requestPermissions(this, storagePermissions, STORAGE_REQUEST_CODE);
     }
 
@@ -444,12 +419,12 @@ public class MediScanner extends AppCompatActivity {
             case CAMERA_REQUEST_CODE:{
                 if(grantResults.length>0){
                     boolean cameraAccepted= grantResults[0]==PackageManager.PERMISSION_GRANTED;
-                    boolean storageAccepted= grantResults[0]==PackageManager.PERMISSION_GRANTED;
+                   // boolean storageAccepted= grantResults[1]==PackageManager.PERMISSION_GRANTED;
 
-                    if(cameraAccepted&&storageAccepted){
+                    if(cameraAccepted){
                         pickImageCamera();
                     }else{
-                        Toast.makeText(this, "Camera & Storage permissions are required", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, "Camera permission is required", Toast.LENGTH_SHORT).show();
                     }
                 }
             }break;
@@ -457,7 +432,7 @@ public class MediScanner extends AppCompatActivity {
                 if(grantResults.length>0){
                     boolean storageAccepted= grantResults[0]==PackageManager.PERMISSION_GRANTED;
                     if(storageAccepted){
-                        pickImageCamera();
+                        pickImageGallery();
                     }else{
                         Toast.makeText(this, "Storage permission is required", Toast.LENGTH_SHORT).show();
                     }
@@ -465,5 +440,6 @@ public class MediScanner extends AppCompatActivity {
             }break;
         }
     }
+
 
 }

@@ -1,4 +1,4 @@
-package com.example.mediscanner_firebase;
+package com.example.mediscanner_firebase.Sophia;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;

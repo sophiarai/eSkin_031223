@@ -1,4 +1,4 @@
-package com.example.mediscanner_firebase;
+package com.example.mediscanner_firebase.Christiane;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
@@ -11,8 +11,12 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-public class Wound extends AppCompatActivity {
+import com.example.mediscanner_firebase.R;
+import com.example.mediscanner_firebase.Sophia.Medication;
+import com.example.mediscanner_firebase.Verena.Wound;
+import com.example.mediscanner_firebase.Yara.Maps;
 
+public class Calendar extends AppCompatActivity {
     DrawerLayout drawerLayout;
     ImageView menu;
     LinearLayout medication, maps, calendar,wound;
@@ -20,7 +24,8 @@ public class Wound extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_wound_docu);
+        setContentView(R.layout.activity_calendar);
+
         drawerLayout=findViewById(R.id.drawerLayout);
         medication=findViewById(R.id.mediscanner);
         maps=findViewById(R.id.maps);
@@ -28,37 +33,39 @@ public class Wound extends AppCompatActivity {
         calendar=findViewById(R.id.calendar);
         wound=findViewById(R.id.camera);
 
-        medication.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                redirectActivity(Wound.this, Medication.class);
-            }
-        });
 
-        maps.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                redirectActivity(Wound.this, Maps.class);
-            }
-        });
         menu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 openDrawer(drawerLayout);
             }
         });
+        medication.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                redirectActivity(Calendar.this, Medication.class);
+            }
+        });
+
+        maps.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                redirectActivity(Calendar.this, Maps.class);
+            }
+        });
         wound.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                recreate();
+                redirectActivity(Calendar.this, Wound.class);
             }
         });
         calendar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                redirectActivity(Wound.this, Calendar.class);
+                redirectActivity(Calendar.this, Calendar.class);
             }
         });
+
 
     }
     public static void openDrawer(DrawerLayout drawerLayout){

@@ -1,4 +1,4 @@
-package com.example.mediscanner_firebase;
+package com.example.mediscanner_firebase.Yara;
 
 import com.google.android.gms.maps.model.LatLng;
 

@@ -5,5 +5,9 @@
     <color name="blue">#83A2FF</color>
     <color name="lightBlue">#B4BDFF</color>
     <color name="grey">#96979F</color>
+    <color name="lavender">#8692f7</color>
+    <color name="red">#c70000</color>
+    <color name="green">#00ff00</color>
+
 
 </resources>

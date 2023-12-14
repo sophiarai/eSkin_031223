@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/drawerLayout"
-    tools:context=".Wound">
+    tools:context=".Verena.Wound">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -15,14 +15,46 @@
 
         <include
             layout="@layout/toolbar"/>
-        <TextView
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+
+
+        <androidx.appcompat.widget.SearchView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="12dp"
+            android:id="@+id/search"
+            app:iconifiedByDefault="false"
+            app:searchHintIcon="@null"
+            app:queryHint="Search..."
+            android:focusable="false"
+            app:closeIcon="@drawable/baseline_clear_24"
+            app:searchIcon="@drawable/baseline_search_24"
+            android:background="@drawable/lavender_border"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_marginTop="10dp"
+            android:layout_below="@id/search"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/recyclerView"
+            android:scrollbars="vertical"/>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Wound documentation"
-            android:layout_gravity="center"
-            android:layout_marginTop="250dp"
-            android:textColor="@color/black"
-            android:textSize="36sp"/>
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_margin="40dp"
+            android:backgroundTint="@color/lavender"
+            app:tint = "@color/white"
+            android:src="@drawable/baseline_add_24" />
+        </RelativeLayout>
     </LinearLayout>
 
     <RelativeLayout
@@ -35,6 +67,5 @@
             layout="@layout/nav_drawer"/>
 
     </RelativeLayout>
-
 
 </androidx.drawerlayout.widget.DrawerLayout>

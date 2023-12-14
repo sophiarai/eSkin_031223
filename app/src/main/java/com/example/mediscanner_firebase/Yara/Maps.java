@@ -1,4 +1,4 @@
-package com.example.mediscanner_firebase;
+package com.example.mediscanner_firebase.Yara;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
@@ -9,6 +9,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+
+import com.example.mediscanner_firebase.Christiane.Calendar;
+import com.example.mediscanner_firebase.Sophia.Medication;
+import com.example.mediscanner_firebase.R;
+import com.example.mediscanner_firebase.Verena.Wound;
 
 public class Maps extends AppCompatActivity {
     DrawerLayout drawerLayout;

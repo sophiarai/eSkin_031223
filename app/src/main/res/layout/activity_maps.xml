@@ -6,12 +6,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/drawerLayout"
-    tools:context=".Maps">
+    tools:context=".Yara.Maps">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
+        <!-- Toolbar sollte zuerst kommen -->
+        <include
+            layout="@layout/toolbar"/>
 
         <FrameLayout
             android:id="@+id/mapContainer"
@@ -24,16 +28,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:name="com.google.android.gms.maps.SupportMapFragment"
-                tools:context=".MapsActivity" />
+                tools:context=".Yara.MapsActivity" />
         </FrameLayout>
 
         <ListView
             android:id="@+id/markerListView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
-
-    <include
-        layout="@layout/toolbar"/>
 
     </LinearLayout>
 
@@ -47,6 +48,5 @@
             layout="@layout/nav_drawer"/>
 
     </RelativeLayout>
-
 
 </androidx.drawerlayout.widget.DrawerLayout>

@@ -1,4 +1,4 @@
-package com.example.mediscanner_firebase;
+package com.example.mediscanner_firebase.Yara;
 
 
 import android.app.AlertDialog;
@@ -15,6 +15,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 
+import com.example.mediscanner_firebase.R;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
