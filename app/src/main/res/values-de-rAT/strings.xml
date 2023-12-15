@@ -20,4 +20,7 @@
     <string name="upload_data">Daten hochladen</string>
     <string name="save">Speichern</string>
     <string name="loading">Laden...</string>
+    <string name="event">Ereignis</string>
+    <string name="ganztaegig">Ganztägig</string>
+    <string name="no_date_found">Keine Daten gefunden</string>
 </resources>

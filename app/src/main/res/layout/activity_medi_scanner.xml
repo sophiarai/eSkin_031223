@@ -7,11 +7,19 @@
     android:padding="10dp"
     tools:context=".Sophia.MediScanner"
     >
-
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginStart="5dp"
+        app:cardCornerRadius="30dp"
+        app:cardElevation="20dp">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical" >
+        android:orientation="vertical"
+        android:background="@drawable/lavendar_border">
 
 
         <LinearLayout
@@ -84,18 +92,20 @@
 
                 <EditText
                     android:id="@+id/label_Tv"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"                    android:layout_marginLeft="47dp"
                     android:layout_weight="1"
-                    android:layout_marginLeft="47dp"
+                    android:background="@drawable/lavendar_border"
+                    android:importantForAccessibility="no"
                     android:textSize="20sp"
-                    android:importantForAccessibility="no"/>
+                    tools:ignore="TouchTargetSizeCheck" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
+                android:layout_marginTop="10dp"
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp">
 
@@ -108,18 +118,21 @@
 
                 <EditText
                     android:id="@+id/titel_Tv"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
                     android:layout_marginLeft="52dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/lavendar_border"
+                    android:importantForAccessibility="no"
                     android:textSize="20sp"
-                    android:importantForAccessibility="no"/>
+                    tools:ignore="TouchTargetSizeCheck" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
+                android:layout_marginTop="10dp"
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp">
 
@@ -132,12 +145,14 @@
 
                 <EditText
                     android:id="@+id/dosierung_Tv"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
                     android:layout_marginLeft="30dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/lavendar_border"
+                    android:importantForAccessibility="no"
                     android:textSize="20sp"
-                    android:importantForAccessibility="no"/>
+                    tools:ignore="TouchTargetSizeCheck" />
             </LinearLayout>
 
 
@@ -178,6 +193,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+
                     android:hint="0"
                     android:minHeight="48dp"
                     tools:ignore="TouchTargetSizeCheck" />
@@ -255,6 +271,8 @@
             android:backgroundTint="@color/lavender"
             />
     </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
 
 
 
