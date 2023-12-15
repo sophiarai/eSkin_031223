@@ -1,6 +1,7 @@
 plugins {
     id("com.android.application")
     id("com.google.gms.google-services")
+
 }
 
 android {
@@ -10,7 +11,7 @@ android {
     defaultConfig {
         applicationId = "com.example.mediscanner_firebase"
         minSdk = 26
-        targetSdk = 33
+        targetSdk = 34
         versionCode = 1
         versionName = "1.0"
 
@@ -53,4 +54,8 @@ dependencies {
     implementation ("com.github.bumptech.glide:glide:4.14.2")
     annotationProcessor ("com.github.bumptech.glide:compiler:4.14.2")
     implementation ("com.github.clans:fab:1.6.4")
+
+    //Christiane
+    implementation(platform("com.google.firebase:firebase-bom:32.5.0"))
+    implementation ("com.google.firebase:firebase-messaging:23.3.1")
 }
