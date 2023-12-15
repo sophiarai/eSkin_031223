@@ -57,8 +57,7 @@ public class UpdateActivity extends AppCompatActivity {
         updateTitle = findViewById(R.id.uploadTopic);
 
         // Daten für das Dropdown-Menü
-        String[] hauterkrankungen = {"Akne", "Neurodermitis", "Schuppenflechte", "Muttermal", "Rosazea", "Hautkrebs", "Ekzeme", "Warzen", "Andere"};
-
+        String[] hauterkrankungen = {"Akne", "Neurodermitis", "Schuppenflechte", "Muttermal", "Rosazea", "Hautkrebs", "Ekzeme", "Warzen","Nesselsucht", "Hautpilzinfektionen", "Scapies",  "Andere"};
         // Adapter für den Spinner erstellen
         ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, hauterkrankungen);
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MediScanner_Firebase</string>
+    <string name="app_name" translatable="false">eSkin</string>
     <string name="medication">Medication</string>
     <string name="overview_medication">Overview Medication</string>
     <string name="camera">Camera</string>
