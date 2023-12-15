@@ -9,4 +9,16 @@
     <string name="title">Titel</string>
     <string name="dosage">Dosierung</string>
     <string name="intake">Einnahme</string>
+    <string name="wunddokumentation">Wunddokumentation</string>
+    <string name="calendar">Kalender</string>
+    <string name="language">Sprache</string>
+    <string name="description">Beschreibung</string>
+    <string name="willkommen_bei_eskin">Willkommen bei eSkin</string>
+    <string name="update_data">Update Daten</string>
+    <string name="enter_topic_name">Themenname eingeben</string>
+    <string name="enter_description">Beschreibung eingeben</string>
+    <string name="enter_language">Sprache eingeben</string>
+    <string name="upload_data">Daten hochladen</string>
+    <string name="save">Speichern</string>
+    <string name="loading">Laden...</string>
 </resources>

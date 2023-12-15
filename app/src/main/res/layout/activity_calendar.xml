@@ -35,7 +35,7 @@
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="100dp"
-            android:text="Calendar"
+            android:text="@string/calendar"
             android:textSize="30sp"
             android:textStyle="bold"
             tools:ignore="TextSizeCheck" />
