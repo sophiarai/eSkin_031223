@@ -44,6 +44,7 @@ dependencies {
 
     //Sophia
     implementation("com.google.firebase:firebase-database:20.3.0")
+    
     implementation("com.google.firebase:firebase-firestore:24.9.1")
     implementation("com.google.firebase:firebase-storage:20.3.0")
     implementation ("com.google.mlkit:barcode-scanning:17.2.0")
@@ -58,4 +59,7 @@ dependencies {
     //Christiane
     implementation(platform("com.google.firebase:firebase-bom:32.5.0"))
     implementation ("com.google.firebase:firebase-messaging:23.3.1")
+
+
+
 }

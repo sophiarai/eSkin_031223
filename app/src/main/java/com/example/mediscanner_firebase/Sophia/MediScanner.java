@@ -37,6 +37,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.mlkit.vision.barcode.BarcodeScanner;
 import com.google.mlkit.vision.barcode.BarcodeScannerOptions;
 import com.google.mlkit.vision.barcode.BarcodeScanning;
@@ -105,13 +106,13 @@ public class MediScanner extends AppCompatActivity {
 
         cameraPermissions = new String[]{android.Manifest.permission.CAMERA, android.Manifest.permission.WRITE_EXTERNAL_STORAGE};
         storagePermissions = new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE};
-
         barcodeScannerOptions= new BarcodeScannerOptions.Builder().setBarcodeFormats(Barcode.FORMAT_ALL_FORMATS).build();
         barcodeScannerOptions = new BarcodeScannerOptions.Builder().setBarcodeFormats(Barcode.FORMAT_QR_CODE).build();
-
         barcodeScanner= BarcodeScanning.getClient(barcodeScannerOptions);
 
+
         databaseReference= FirebaseDatabase.getInstance().getReference("medication");
+
 
         if (!checkStoragePermission()) {
             requestStoragePermission();
@@ -233,6 +234,7 @@ public class MediScanner extends AppCompatActivity {
                         }
                     }
                 });
+
     }
 
 

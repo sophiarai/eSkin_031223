@@ -43,6 +43,7 @@ public class Medication extends AppCompatActivity {
     LinearLayout medication, maps, calendar,wound;
 
     DatabaseReference databaseReference;
+
     Button buttonPlus;
     ListView listView;
     ArrayList<MedicationItem> medicationList;
@@ -122,12 +123,12 @@ public class Medication extends AppCompatActivity {
                     // Extrahieren Sie die Daten für jedes Medikationselement
                     String labelText = snapshot.child("labelText").getValue(String.class);
                     String titelText = snapshot.child("titelText").getValue(String.class);
-                    String dosageText = snapshot.child("dosageText").getValue(String.class);
+                    //String dosageText = snapshot.child("dosageText").getValue(String.class);
                     String einnahmeZeiten = snapshot.child("einnahmeZeiten").getValue(String.class);
                     String itemId = snapshot.getKey(); // Die ID des Elements in der Firebase-Datenbank
 
                     // Fügen Sie das Medikationselement der Liste hinzu
-                    MedicationItem medicationItem = new MedicationItem(labelText, titelText, dosageText, einnahmeZeiten);
+                    MedicationItem medicationItem = new MedicationItem(labelText, titelText, einnahmeZeiten);
                     medicationList.add(medicationItem);
                 }
 
@@ -185,7 +186,6 @@ public class Medication extends AppCompatActivity {
                     // Überprüfen , ob die Daten mit dem zu löschenden Element übereinstimmen
                     if (labelText.equals(itemToDelete.getLabel()) &&
                             titelText.equals(itemToDelete.getTitle()) &&
-                            dosageText.equals(itemToDelete.getDosage()) &&
                             einnahmeZeiten.equals(itemToDelete.getUsage())) {
 
                         // Hier löschen Sie das Element aus der Firebase-Datenbank

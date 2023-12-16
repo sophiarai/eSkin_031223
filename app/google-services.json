@@ -1,13 +1,14 @@
 {
   "project_info": {
-    "project_number": "979787157807",
-    "project_id": "mediscanner-firebase",
-    "storage_bucket": "mediscanner-firebase.appspot.com"
+    "project_number": "560523739258",
+    "firebase_url": "https://eskin161223v2-default-rtdb.firebaseio.com",
+    "project_id": "eskin161223v2",
+    "storage_bucket": "eskin161223v2.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:979787157807:android:c57ac0e4b9efbf4d1b51da",
+        "mobilesdk_app_id": "1:560523739258:android:686ddd4d63f22b21e37bc3",
         "android_client_info": {
           "package_name": "com.example.mediscanner_firebase"
         }
@@ -15,7 +16,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyDMqOS_di8M2EBdZ4bWpwQAH14pVwY2AIc"
+          "current_key": "AIzaSyC8c476Xcn1XdqUFPXdwdzs0te834FPxUs"
         }
       ],
       "services": {

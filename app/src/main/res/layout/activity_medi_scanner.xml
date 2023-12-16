@@ -145,15 +145,16 @@
                     android:layout_height="wrap_content"
                     style="@style/TextAppearance.MaterialComponents.Body1"
                     android:text="@string/dosage"
+                    android:textColor="@color/white"
                     android:textStyle="bold"/>
 
                 <EditText
                     android:id="@+id/dosierung_Tv"
                     android:layout_width="match_parent"
-                    android:layout_height="40dp"
+                    android:layout_height="0dp"
                     android:layout_marginLeft="30dp"
+                    android:textColor="@color/white"
                     android:layout_weight="1"
-                    android:background="@drawable/lavendar_border"
                     android:importantForAccessibility="no"
                     android:textSize="20sp"
                     tools:ignore="TouchTargetSizeCheck" />
@@ -165,7 +166,6 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_marginStart="20dp"
-                android:layout_marginTop="40dp"
                 android:layout_marginEnd="20dp">
 
                 <TextView

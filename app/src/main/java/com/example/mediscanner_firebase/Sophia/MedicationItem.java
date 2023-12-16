@@ -5,14 +5,14 @@ public class MedicationItem {
 
     private String label;
     private String title;
-    private String dosage;
+    //private String dosage;
     private String usage;
 
-    public MedicationItem(String label, String title, String dosage, String usage) {
+    public MedicationItem(String label, String title, String usage) {
 
         this.label = label;
         this.title = title;
-        this.dosage = dosage;
+      //  this.dosage = dosage;
         this.usage = usage;
     }
 
@@ -24,9 +24,9 @@ public class MedicationItem {
         return title;
     }
 
-    public String getDosage() {
-        return dosage;
-    }
+    //public String getDosage() {
+       // return dosage;
+   // }
 
     public String getUsage() {
         return usage;
