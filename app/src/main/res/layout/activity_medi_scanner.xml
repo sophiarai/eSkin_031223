@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:padding="10dp"
     tools:context=".Sophia.MediScanner"
-    >
+    tools:ignore="MissingDefaultResource">
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -36,6 +36,7 @@
                 android:textStyle="bold"
                 android:text="@string/camera"
                 android:layout_marginEnd="5dp"
+                android:layout_marginStart="20dp"
                 android:layout_weight="1"
                 tools:ignore="VisualLintButtonSize"
                 android:backgroundTint="@color/lavender"/>
@@ -46,6 +47,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/white"
                 android:textStyle="bold"
+                android:layout_marginEnd="20dp"
                 android:layout_weight="1"
                 android:layout_marginStart="5dp"
                 android:text="@string/gallery"
@@ -66,6 +68,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/scan"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
             android:textColor="@color/white"
             android:textStyle="bold"
             tools:ignore="VisualLintButtonSize"
@@ -267,7 +271,8 @@
             android:textColor="@color/white"
             android:textStyle="bold"
             app:icon="@drawable/ic_back"
-            android:layout_marginTop="30dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="5dp"
             android:backgroundTint="@color/lavender"
             />
     </LinearLayout>
