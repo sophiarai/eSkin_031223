@@ -30,10 +30,11 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.Timestamp;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class UploadActivity extends AppCompatActivity {
-
+DatabaseReference databaseReference;
     Button saveButton;
     EditText uploadEvent;
     Timestamp timestamp;
@@ -145,7 +146,7 @@ public class UploadActivity extends AppCompatActivity {
             //String key = String.valueOf(timestampMillis);
             String key = String.valueOf(selectedTimeMillis);
 
-            FirebaseDatabase.getInstance().getReference("eSkin").child(key)
+            FirebaseDatabase.getInstance().getReference("Calendar").child(key)
                     .setValue(dataClass)
                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override

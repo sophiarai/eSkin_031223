@@ -25,6 +25,7 @@ import com.example.mediscanner_firebase.Verena.Wound;
 import com.example.mediscanner_firebase.Yara.Maps;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.DataSnapshot;
@@ -44,7 +45,7 @@ public class Medication extends AppCompatActivity {
 
     DatabaseReference databaseReference;
 
-    Button buttonPlus;
+    FloatingActionButton buttonPlus;
     ListView listView;
     ArrayList<MedicationItem> medicationList;
 

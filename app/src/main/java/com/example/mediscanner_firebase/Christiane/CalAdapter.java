@@ -4,6 +4,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -26,7 +27,7 @@ public class CalAdapter extends RecyclerView.Adapter<CalAdapter.ViewHolder> {
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public TextView textViewEvent, textViewZeit;
-        public Button deleteButton;
+        public ImageButton deleteButton;
 
 
         public ViewHolder(View itemView) {

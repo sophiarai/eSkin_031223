@@ -180,7 +180,7 @@ public class Calendar extends AppCompatActivity implements CalAdapter.OnDeleteIt
         dataList.clear();
 
         // Referenz zur Firebase-Datenbank für die Abfrage nach dem ausgewählten Datum
-        selectedDateRef = FirebaseDatabase.getInstance().getReference("eSkin");
+        selectedDateRef = FirebaseDatabase.getInstance().getReference("Calendar");
 
 
         Query query = selectedDateRef.orderByChild("timestampMillis").equalTo(selectedDateMillis);
@@ -219,7 +219,7 @@ public class Calendar extends AppCompatActivity implements CalAdapter.OnDeleteIt
         // Hier wird der Löschvorgang in der Firebase-Datenbank durchgeführt
         //String key = String.valueOf(dataItem.getTimestampMillis());
         String key = String.valueOf(dataItem.getSelectedTimeMillis());
-        FirebaseDatabase.getInstance().getReference("eSkin").child(key)
+        FirebaseDatabase.getInstance().getReference("Calendar").child(key)
                 .removeValue()
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
