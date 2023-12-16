@@ -13,6 +13,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "MediScanner_Firebase"
+rootProject.name = "eSkin"
 include(":app")
  
