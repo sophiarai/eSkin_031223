@@ -127,7 +127,7 @@ DatabaseReference databaseReference;
             DataClass dataClass = new DataClass(timestampMillis, selectedTimeMillis, event);
             //String key = String.valueOf(timestampMillis);
             String key = String.valueOf(selectedTimeMillis);
-            FirebaseDatabase.getInstance().getReference("eSkin").child(key)
+            FirebaseDatabase.getInstance().getReference("Calendar").child(key)
                     .setValue(dataClass)
                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
