@@ -194,12 +194,12 @@ public class Medication extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
                                 if (task.isSuccessful()) {
-                                    Toast.makeText(Medication.this, "Medikation gelöscht", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(Medication.this, getString(R.string.medication_delete), Toast.LENGTH_SHORT).show();
                                 } else {
                                     // Falls das Löschen in der Datenbank fehlschlägt, fügen Sie das Element wieder zur Liste hinzu
                                     medicationList.remove(itemToDelete); // Entfernen Sie das Element aus der Liste
                                     adapter.notifyDataSetChanged(); // Benachrichtigen Sie den Adapter über die Änderung
-                                    Toast.makeText(Medication.this, "Fehler beim Löschen der Medikation", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(Medication.this, getString(R.string.error_deleting_medication), Toast.LENGTH_SHORT).show();
                                 }
                             }
                         });

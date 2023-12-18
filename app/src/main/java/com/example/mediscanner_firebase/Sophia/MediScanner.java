@@ -30,6 +30,7 @@ import android.widget.Toast;
 import okhttp3.Response;
 
 import com.example.mediscanner_firebase.R;
+import com.example.mediscanner_firebase.Verena.UploadActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -59,25 +60,16 @@ import okhttp3.Callback;
 
 public class MediScanner extends AppCompatActivity {
     DatabaseReference databaseReference;
-
-    private MaterialButton cameraBtn;
-    MaterialButton btn_back;
-    private MaterialButton galleryBtn;
+    private MaterialButton cameraBtn, galleryBtn, scanBtn, btn_back ;
     private ImageView imageIv;
-    private MaterialButton scanBtn;
-    private EditText resultLabel;
-    private EditText resultTitel;
-    private EditText resultDosage;
-    private EditText einnahme_morgens;
-    private EditText einnahme_mittags;
-    private EditText einnahme_abends;
-    private EditText einnahme_nachts;
+    private EditText resultLabel, resultTitel, resultDosage, einnahme_morgens,einnahme_mittags, einnahme_abends,einnahme_nachts;
+
 
     private static final int CAMERA_REQUEST_CODE=100;
     private static final int STORAGE_REQUEST_CODE=101;
 
-    private String [] cameraPermissions;
-    private String [] storagePermissions;
+    private String[] cameraPermissions;
+    private String[] storagePermissions;
     private Uri imageUri=null;
     private BarcodeScannerOptions barcodeScannerOptions;
     private BarcodeScanner barcodeScanner;
@@ -91,7 +83,7 @@ public class MediScanner extends AppCompatActivity {
         setContentView(R.layout.activity_medi_scanner);
 
         cameraBtn= findViewById(R.id.camera_Btn);
-        galleryBtn=findViewById(R.id.gallery_Btn);
+       galleryBtn=findViewById(R.id.gallery_Btn);
         imageIv=findViewById(R.id.imageIV);
         scanBtn=findViewById(R.id.scanBtn);
         resultLabel=findViewById(R.id.label_Tv);
@@ -104,20 +96,20 @@ public class MediScanner extends AppCompatActivity {
         Button hinzufuegenButton = findViewById(R.id.button_hinzufügen);
         btn_back= findViewById(R.id.backButton);
 
-        cameraPermissions = new String[]{android.Manifest.permission.CAMERA, android.Manifest.permission.WRITE_EXTERNAL_STORAGE};
-        storagePermissions = new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE};
-        barcodeScannerOptions= new BarcodeScannerOptions.Builder().setBarcodeFormats(Barcode.FORMAT_ALL_FORMATS).build();
-        barcodeScannerOptions = new BarcodeScannerOptions.Builder().setBarcodeFormats(Barcode.FORMAT_QR_CODE).build();
-        barcodeScanner= BarcodeScanning.getClient(barcodeScannerOptions);
+        cameraPermissions = new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE};
+        storagePermissions = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE};
 
+        barcodeScannerOptions= new BarcodeScannerOptions.Builder().setBarcodeFormats(Barcode.FORMAT_ALL_FORMATS).build();
+        //barcodeScannerOptions = new BarcodeScannerOptions.Builder().setBarcodeFormats(Barcode.FORMAT_QR_CODE).build();
+        barcodeScanner= BarcodeScanning.getClient(barcodeScannerOptions);
 
         databaseReference= FirebaseDatabase.getInstance().getReference("medication");
 
 
-        if (!checkStoragePermission()) {
+       /* if (!checkStoragePermission()) {
             requestStoragePermission();
         }
-
+*/
         hinzufuegenButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -132,7 +124,7 @@ public class MediScanner extends AppCompatActivity {
                 // Überprüfen, ob Label, Titel und mindestens eine Einnahmezeit ausgefüllt sind
                 if (labelText.isEmpty() || titelText.isEmpty() || (moText.isEmpty() && miText.isEmpty() && abText.isEmpty() && naText.isEmpty())) {
                     // Zeige eine Warnung an
-                    Toast.makeText(MediScanner.this, "Bitte Label, Titel & mindestens eine Einnahmezeit ausfüllen", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MediScanner.this, getString(R.string.fill_out_field), Toast.LENGTH_SHORT).show();
                     return; // Beende die Methode hier, da die Bedingung nicht erfüllt ist
                 }
 
@@ -181,7 +173,7 @@ public class MediScanner extends AppCompatActivity {
             }
         });
 
-        galleryBtn.setOnClickListener(new View.OnClickListener() {
+       /* galleryBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(checkStoragePermission()){
@@ -191,12 +183,12 @@ public class MediScanner extends AppCompatActivity {
                 }
             }
         });
-
+*/
         scanBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(imageUri==null){
-                    Toast.makeText(MediScanner.this, "Pick image first", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MediScanner.this, getString(R.string.pick_image_first), Toast.LENGTH_SHORT).show();
                 }else{
                     detectResultFromImage();
                 }
@@ -207,6 +199,31 @@ public class MediScanner extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(MediScanner.this, Medication.class);
                 startActivity(intent);
+            }
+        });
+
+        ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                new ActivityResultCallback<ActivityResult>() {
+                    @Override
+                    public void onActivityResult(ActivityResult result) {
+                        if (result.getResultCode() == Activity.RESULT_OK){
+                            Intent data = result.getData();
+                            imageUri = data.getData();
+                            imageIv.setImageURI(imageUri);
+                        } else {
+                            Toast.makeText(MediScanner.this, getString(R.string.no_image_selected), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }
+        );
+
+        galleryBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent photoPicker = new Intent(Intent.ACTION_PICK);
+                photoPicker.setType(("image/*"));
+                activityResultLauncher.launch(photoPicker);
             }
         });
     }
@@ -228,9 +245,9 @@ public class MediScanner extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
-                            Toast.makeText(MediScanner.this, "Medikation erfolgreich gespeichert", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MediScanner.this, getString(R.string.medication_saved_successfully), Toast.LENGTH_SHORT).show();
                         } else {
-                            Toast.makeText(MediScanner.this, "Fehler beim Speichern der Medikation", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MediScanner.this, getString(R.string.error_saving_medication), Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
@@ -253,7 +270,7 @@ public class MediScanner extends AppCompatActivity {
 
     private void detectResultFromImage() {
         try {
-            if (imageUri != null) {
+
                 InputImage inputImage = InputImage.fromFilePath(this, imageUri);
                 Task<List<Barcode>> barcodeResult = barcodeScanner.process(inputImage).addOnSuccessListener(new OnSuccessListener<List<Barcode>>() {
                     @Override
@@ -266,25 +283,138 @@ public class MediScanner extends AppCompatActivity {
                         Toast.makeText(MediScanner.this, "Failed scanning due to " + e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
-            } else {
-                Toast.makeText(MediScanner.this, "Image URI is null", Toast.LENGTH_SHORT).show();
-            }
+
         } catch (Exception e) {
             Toast.makeText(MediScanner.this, "Failed due to " + e.getMessage(), Toast.LENGTH_SHORT).show();
         }
     }
 
+    /*private void pickImageGallery() {
+        if(checkStoragePermission()) {
+            Log.d(TAG, "pickImageGallery: Trying to pick image from gallery");
+            Intent intent = new Intent(Intent.ACTION_PICK);
+            intent.setType("image/*");
+            galleryActivityResultLauncher.launch(intent);
+        }else{
+            requestStoragePermission();
+        }
+    }
+    private final ActivityResultLauncher<Intent> galleryActivityResultLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    if (result.getResultCode() == Activity.RESULT_OK) {
+                        Intent data = result.getData();
+                        imageUri = data.getData();
+                        Log.d(TAG, "onActivityResult: imageUri: " + imageUri);
+                        imageIv.setImageURI(imageUri);
+                    } else {
+                        Toast.makeText(MediScanner.this, "Cancelled", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+            */
+
+
+    private void pickImageCamera(){
+        ContentValues contentValues= new ContentValues();
+        contentValues.put(MediaStore.Images.Media.TITLE, "Sample Title");
+        contentValues.put(MediaStore.Images.Media.DESCRIPTION, "Sample Image Description");
+
+        imageUri= getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues);
+
+        Intent intent= new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        intent.putExtra(MediaStore.EXTRA_OUTPUT,imageUri);
+        cameraActivityResultLauncher.launch(intent);
+    }
+    private final ActivityResultLauncher <Intent> cameraActivityResultLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    if (result.getResultCode()==Activity.RESULT_OK){
+                        Intent data = result.getData();
+                        Log.d(TAG, "onActivityResult: imageUri: "+ imageUri);
+                        imageIv.setImageURI(imageUri);
+                    }else{
+                        Toast.makeText(MediScanner.this, "Cancelled...", Toast.LENGTH_SHORT).show();
+                    }
+
+                }
+            }
+    );
+
+
 
     //OLDA Keine Ahnung muss schaun (brauche ich glaub ich nicht alles)
     private void extractBarCodeQRCodeInfo(List<Barcode> barcodes) {
-        for (Barcode barcode : barcodes) {
-            Rect bounds = barcode.getBoundingBox();
-            Point[] corners = barcode.getCornerPoints();
-            String rawValue = barcode.getRawValue();
-            Log.d(TAG, "extractBarCodeQRCodeInfos: rawValue: " + rawValue);
-            int valueType = barcode.getValueType();
+        for(Barcode barcode: barcodes){
+            Rect bounds= barcode.getBoundingBox();
+            Point[] corners= barcode.getCornerPoints();
 
-            switch (valueType) {
+            String rawValue= barcode.getRawValue();
+            Log.d(TAG, "extractBarCodeQRCodeInfos: rawValue: " + rawValue);
+
+            int valueType= barcode.getValueType();
+
+            switch (valueType){
+                case Barcode.TYPE_WIFI:{
+                    Barcode.WiFi typeWifi= barcode.getWifi();
+                    String ssid=""+typeWifi.getSsid();
+                    String password=""+typeWifi.getPassword();
+                    String encryptionType=""+typeWifi.getEncryptionType();
+
+                    Log.d(TAG, "extraBarCodeQRCodeInfo: ssid:  "+ ssid);
+                    Log.d(TAG, "extraBarCodeQRCodeInfo: password:  "+ password);
+                    Log.d(TAG, "extraBarCodeQRCodeInfo: encryptionType:  "+ encryptionType);
+
+                    resultLabel.setText("TYPE: TYPE_WIFI \nssid: "+ssid+"\npassword: "+password+"\nencryptionType"+encryptionType+"\nraw value: "+ rawValue);
+                }break;
+                case Barcode.TYPE_URL:{
+                    Barcode.UrlBookmark typeUrl= barcode.getUrl();
+
+                    String title=""+typeUrl.getTitle();
+                    String url=""+typeUrl.getUrl();
+
+                    Log.d(TAG, "extractBarCodeQRCodeInfo: TYPE_URL");
+                    Log.d(TAG, "extractBarCodeQRCodeInfo: title: "+title);
+                    Log.d(TAG, "extractBarCodeQRCodeInfo: url: "+url);
+
+                    resultLabel.setText("TYPE: TYPE_URL \ntitle: "+title+"\nurl: "+url+"\nraw value: "+ rawValue);
+                }break;
+                case Barcode.TYPE_EMAIL:{
+                    Barcode.Email typeEmail= barcode.getEmail();
+
+                    String address=""+typeEmail.getAddress();
+                    String body=""+typeEmail.getBody();
+                    String subject=""+typeEmail.getSubject();
+
+
+                    Log.d(TAG, "extractBarCodeQRCodeInfo: TYPE_EMAIL");
+                    Log.d(TAG, "extractBarCodeQRCodeInfo: address: "+address);
+                    Log.d(TAG, "extractBarCodeQRCodeInfo: body: "+body);
+                    Log.d(TAG, "extractBarCodeQRCodeInfo: subject: "+subject);
+
+                    resultLabel.setText("TYPE: TYPE_EMAIL \naddress: "+address+"\nbody: "+body+"\nsubject: "+subject+"\nraw value: "+ rawValue);
+                }break;
+                case Barcode.TYPE_CONTACT_INFO:{
+                    Barcode.ContactInfo typeContact= barcode.getContactInfo();
+
+                    String title=""+typeContact.getTitle();
+                    String organizer=""+typeContact.getOrganization();
+                    String name=""+typeContact.getName().getFirst()+" "+typeContact.getName().getLast();
+                    String phones=""+typeContact.getPhones().get(0).getNumber();
+
+
+                    Log.d(TAG, "extractBarCodeQRCodeInfo: TYPE_CONTACT_INFO");
+                    Log.d(TAG, "extractBarCodeQRCodeInfo: title: "+title);
+                    Log.d(TAG, "extractBarCodeQRCodeInfo: organizer: "+organizer);
+                    Log.d(TAG, "extractBarCodeQRCodeInfo: name: "+name);
+                    Log.d(TAG, "extractBarCodeQRCodeInfo: phones: "+phones);
+
+                    resultLabel.setText("TYPE: TYPE_CONTACT_INFO \ntitle: "+title+"\norganizer: "+organizer+"\nname: "+name+"\nphones: "+phones+"\nraw value: "+ rawValue);
+                }break;
                 case Barcode.TYPE_PRODUCT: {
                     // Barcode an die Medipim-API senden und Informationen abrufen
                     String apiUrl = "https://api.medipim.be/v4/" + rawValue;
@@ -328,83 +458,24 @@ public class MediScanner extends AppCompatActivity {
                     break;
                 }
                 default: {
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
                             resultLabel.setText("raw value: " + rawValue);
-                            resultTitel.setText("rawValue: " + rawValue);
-                        }
-                    });
+                            //resultTitel.setText("rawValue: " + rawValue);
                 }
             }
         }
     }
 
-
-    private void pickImageGallery() {
-        Log.d(TAG, "pickImageGallery: Trying to pick image from gallery");
-        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-        intent.setType("image/*");
-        galleryActivityResultLauncher.launch(intent);
+   /* private boolean checkStoragePermission() {
+        return ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED &&
+                ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
     }
-
-    private final ActivityResultLauncher<Intent> galleryActivityResultLauncher = registerForActivityResult(
-            new ActivityResultContracts.StartActivityForResult(),
-            new ActivityResultCallback<ActivityResult>() {
-                @Override
-                public void onActivityResult(ActivityResult result) {
-                    if (result.getResultCode() == Activity.RESULT_OK) {
-                        Intent data = result.getData();
-                        if (data != null) {
-                            // URI der ausgewählten Datei
-                            imageUri = data.getData();
-                            Log.d(TAG, "onActivityResult: imageUri: " + imageUri);
-                            // Bild in ImageView setzen
-                            imageIv.setImageURI(imageUri);
-                        }
-                    } else {
-                        Toast.makeText(MediScanner.this, "Cancelled", Toast.LENGTH_SHORT).show();
-                    }
-                }
-            });
-    private final ActivityResultLauncher <Intent> cameraActivityResultLauncher = registerForActivityResult(
-            new ActivityResultContracts.StartActivityForResult(),
-            new ActivityResultCallback<ActivityResult>() {
-                @Override
-                public void onActivityResult(ActivityResult result) {
-                    if (result.getResultCode()==Activity.RESULT_OK){
-                        Intent data = result.getData();
-                        Log.d(TAG, "onActivityResult: imageUri: "+ imageUri);
-                        imageIv.setImageURI(imageUri);
-                    }else{
-                        Toast.makeText(MediScanner.this, "Cancelled", Toast.LENGTH_SHORT).show();
-                    }
-
-                }
-            }
-    );
-    private void pickImageCamera(){
-        ContentValues contentValues= new ContentValues();
-        contentValues.put(MediaStore.Images.Media.TITLE, "Sample Title");
-        contentValues.put(MediaStore.Images.Media.DESCRIPTION, "Sample Image Description");
-
-        imageUri= getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues);
-        Intent intent= new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        intent.putExtra(MediaStore.EXTRA_OUTPUT,imageUri);
-        cameraActivityResultLauncher.launch(intent);
-    }
-
-    private boolean checkStoragePermission(){
-        boolean result= ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)== PackageManager.PERMISSION_GRANTED;
-        return result;
-    }
-
-    private void  requestStoragePermission(){
+    private void requestStoragePermission() {
         ActivityCompat.requestPermissions(this, storagePermissions, STORAGE_REQUEST_CODE);
     }
+*/
 
     private boolean checkCameraPermission(){
-        boolean resultCamera=ContextCompat.checkSelfPermission(this, android.Manifest.permission.CAMERA)==PackageManager.PERMISSION_GRANTED;
+        boolean resultCamera=ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED;
         boolean resultStorage=ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)==PackageManager.PERMISSION_GRANTED;
         return resultCamera && resultStorage;
     }
@@ -421,16 +492,16 @@ public class MediScanner extends AppCompatActivity {
             case CAMERA_REQUEST_CODE:{
                 if(grantResults.length>0){
                     boolean cameraAccepted= grantResults[0]==PackageManager.PERMISSION_GRANTED;
-                   // boolean storageAccepted= grantResults[1]==PackageManager.PERMISSION_GRANTED;
+                   //boolean storageAccepted= grantResults[1]==PackageManager.PERMISSION_GRANTED;
 
-                    if(cameraAccepted){
+                    if(cameraAccepted /*&& storageAccepted*/){
                         pickImageCamera();
                     }else{
-                        Toast.makeText(this, "Camera permission is required", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, "Camera permission is required...", Toast.LENGTH_SHORT).show();
                     }
                 }
             }break;
-            case STORAGE_REQUEST_CODE:{
+            /*case STORAGE_REQUEST_CODE:{
                 if(grantResults.length>0){
                     boolean storageAccepted= grantResults[0]==PackageManager.PERMISSION_GRANTED;
                     if(storageAccepted){
@@ -439,9 +510,13 @@ public class MediScanner extends AppCompatActivity {
                         Toast.makeText(this, "Storage permission is required", Toast.LENGTH_SHORT).show();
                     }
                 }
-            }break;
+            }break;*/
         }
+
+
+
     }
+
 
 
 }

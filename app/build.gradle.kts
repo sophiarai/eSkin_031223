@@ -44,10 +44,10 @@ dependencies {
 
     //Sophia
     implementation("com.google.firebase:firebase-database:20.3.0")
-    
     implementation("com.google.firebase:firebase-firestore:24.9.1")
     implementation("com.google.firebase:firebase-storage:20.3.0")
-    implementation ("com.google.mlkit:barcode-scanning:17.2.0")
+    implementation ("com.google.mlkit:barcode-scanning:17.1.0")
+    implementation ("com.google.android.gms:play-services-mlkit-barcode-scanning:18.2.0")
     implementation("com.google.android.gms:play-services-maps:18.2.0")
     implementation ("com.squareup.okhttp3:okhttp:4.9.1")
 
