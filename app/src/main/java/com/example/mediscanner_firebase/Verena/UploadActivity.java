@@ -54,7 +54,7 @@ DatabaseReference databaseReference;
         uploadTopic = findViewById(R.id.uploadTopic);
         uploadLang = findViewById(R.id.uploadLang);
         saveButton = findViewById(R.id.saveButton);
-
+                                                                                // war vorher Wound
         databaseReference=FirebaseDatabase.getInstance().getReference("Wound");
 
         // Daten für das Dropdown-Menü

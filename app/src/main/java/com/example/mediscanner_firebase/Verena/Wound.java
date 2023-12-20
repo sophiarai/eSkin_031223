@@ -87,7 +87,7 @@ public class Wound extends AppCompatActivity {
 
         adapter = new MyAdapter(Wound.this, dataList);
         recyclerView.setAdapter(adapter);
-
+                                                                                //vorher war Wound
         databaseReference = FirebaseDatabase.getInstance().getReference("Wound");
         dialog.show();
         eventListener = databaseReference.addValueEventListener(new ValueEventListener() {
@@ -131,6 +131,14 @@ public class Wound extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+
+
+
+
+
+
+
 
         medication.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -184,6 +192,10 @@ public class Wound extends AppCompatActivity {
         super.onPause();
         closeDrawer(drawerLayout);
     }
+
+
+
+
 
     public void searchList(String text){
         ArrayList<DataClass> searchList = new ArrayList<>();
