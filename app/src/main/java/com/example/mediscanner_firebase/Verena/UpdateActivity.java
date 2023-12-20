@@ -13,9 +13,11 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -34,7 +36,8 @@ public class UpdateActivity extends AppCompatActivity {
 
     ImageView updateImage;
     Button updateButton;
-    EditText updateDesc, updateTitle, updateLang;
+    EditText updateDesc,  updateLang;
+    Spinner updateTitle;
     String title, desc, lang;
     String imageUrl;
     String key, oldImageURL;
@@ -51,7 +54,16 @@ public class UpdateActivity extends AppCompatActivity {
         updateDesc = findViewById(R.id.updateDesc);
         updateImage = findViewById(R.id.updateImage);
         updateLang = findViewById(R.id.updateLang);
-        updateTitle = findViewById(R.id.updateTitle);
+        updateTitle = findViewById(R.id.uploadTopic);
+
+        // Daten für das Dropdown-Menü
+        String[] hauterkrankungen = {"Akne", "Neurodermitis", "Schuppenflechte", "Muttermal", "Rosazea", "Hautkrebs", "Ekzeme", "Warzen","Nesselsucht", "Hautpilzinfektionen", "Scapies",  "Andere"};
+        // Adapter für den Spinner erstellen
+        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, hauterkrankungen);
+        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        // Adapter an den Spinner binden
+        updateTitle.setAdapter(spinnerAdapter);
 
         ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
@@ -71,13 +83,14 @@ public class UpdateActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         if (bundle != null){
             Glide.with(UpdateActivity.this).load(bundle.getString("Image")).into(updateImage);
-            updateTitle.setText(bundle.getString("Title"));
+            updateTitle.setSelection(spinnerAdapter.getPosition(bundle.getString("Title")));
             updateDesc.setText(bundle.getString("Description"));
             updateLang.setText(bundle.getString("Language"));
             key = bundle.getString("Key");
             oldImageURL = bundle.getString("Image");
         }
-        databaseReference = FirebaseDatabase.getInstance().getReference("Android Tutorials").child(key);
+                                                                                //Wound
+        databaseReference = FirebaseDatabase.getInstance().getReference("Wound").child(key);
 
         updateImage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -128,7 +141,7 @@ public class UpdateActivity extends AppCompatActivity {
 
     }
     public void updateData(){
-        title = updateTitle.getText().toString().trim();
+        title = updateTitle.getSelectedItem().toString().trim();
         desc = updateDesc.getText().toString().trim();
         lang = updateLang.getText().toString();
 

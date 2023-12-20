@@ -23,7 +23,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_below="@id/toolbar"
-                android:layout_above="@id/button_plus"
+                android:layout_above="@id/textView_ÜbersMedikamente"
                 android:src="@drawable/medikation"
                 android:scaleType="centerCrop"
                 android:adjustViewBounds="true"/>
@@ -41,25 +41,14 @@
                 tools:ignore="TextSizeCheck" />
 
 
-            <Button
-                android:id="@+id/button_plus"
-                android:layout_width="60dp"
-                android:layout_height="wrap_content"
-                android:text="+"
-                android:textColor="@color/white"
-                android:textSize="20sp"
-                android:layout_below="@id/textView_Medikamente"
-                android:layout_marginTop="20dp"
-                android:layout_marginStart="20dp"
-                android:textStyle="bold"
-                android:backgroundTint="@color/lavender" />
+
 
             <TextView
                 android:id="@+id/textView_ÜbersMedikamente"
                 android:text="@string/overview_medication"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/button_plus"
+                android:layout_below="@id/textView_Medikamente"
                 android:textStyle="bold"
                 android:layout_marginTop="20dp"
                 android:layout_marginStart="20dp" />
@@ -72,6 +61,36 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"/>
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="3dp"
+                android:layout_marginEnd="17dp"
+                android:layout_marginBottom="19dp"
+                android:backgroundTint="@color/lavender"
+                android:contentDescription="@string/app_name"
+                android:src="@drawable/baseline_add_24"
+                app:tint="@color/white"
+                tools:ignore="DuplicateClickableBoundsCheck" />
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/button_plus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="3dp"
+                android:layout_marginEnd="17dp"
+                android:layout_marginBottom="19dp"
+                android:backgroundTint="@color/lavender"
+                android:contentDescription="@string/app_name"
+                android:src="@drawable/baseline_add_24"
+                app:tint="@color/white" />
         </RelativeLayout>
     </LinearLayout>
 

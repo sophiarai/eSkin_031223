@@ -35,13 +35,13 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
-
+//Mainactivity
 //https://www.youtube.com/watch?v=DWIGAkYkpg8
 //https://androidknowledge.com/store-retrieve-image-firebase-android-studio/
 //handy muss ans internet angeschlossen sein !!!!
 
 //anbei die Zugangsdaten für den Google Account:
-//        Zugang:                                 rheumastop@gmail.com
+//Zugang:                                 rheumastop@gmail.com
 //Passwort:                            rheumastop123
 //Projekt "FERTIG" nehmen haha
 
@@ -87,8 +87,8 @@ public class Wound extends AppCompatActivity {
 
         adapter = new MyAdapter(Wound.this, dataList);
         recyclerView.setAdapter(adapter);
-
-        databaseReference = FirebaseDatabase.getInstance().getReference("Android Tutorials");
+                                                                                //vorher war Wound
+        databaseReference = FirebaseDatabase.getInstance().getReference("Wound");
         dialog.show();
         eventListener = databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -131,6 +131,14 @@ public class Wound extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+
+
+
+
+
+
+
 
         medication.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -184,6 +192,10 @@ public class Wound extends AppCompatActivity {
         super.onPause();
         closeDrawer(drawerLayout);
     }
+
+
+
+
 
     public void searchList(String text){
         ArrayList<DataClass> searchList = new ArrayList<>();

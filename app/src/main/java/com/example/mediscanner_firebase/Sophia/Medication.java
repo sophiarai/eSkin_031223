@@ -25,6 +25,7 @@ import com.example.mediscanner_firebase.Verena.Wound;
 import com.example.mediscanner_firebase.Yara.Maps;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.DataSnapshot;
@@ -43,7 +44,8 @@ public class Medication extends AppCompatActivity {
     LinearLayout medication, maps, calendar,wound;
 
     DatabaseReference databaseReference;
-    Button buttonPlus;
+
+    FloatingActionButton buttonPlus;
     ListView listView;
     ArrayList<MedicationItem> medicationList;
 
@@ -122,12 +124,12 @@ public class Medication extends AppCompatActivity {
                     // Extrahieren Sie die Daten für jedes Medikationselement
                     String labelText = snapshot.child("labelText").getValue(String.class);
                     String titelText = snapshot.child("titelText").getValue(String.class);
-                    String dosageText = snapshot.child("dosageText").getValue(String.class);
+                    //String dosageText = snapshot.child("dosageText").getValue(String.class);
                     String einnahmeZeiten = snapshot.child("einnahmeZeiten").getValue(String.class);
                     String itemId = snapshot.getKey(); // Die ID des Elements in der Firebase-Datenbank
 
                     // Fügen Sie das Medikationselement der Liste hinzu
-                    MedicationItem medicationItem = new MedicationItem(labelText, titelText, dosageText, einnahmeZeiten);
+                    MedicationItem medicationItem = new MedicationItem(labelText, titelText, einnahmeZeiten);
                     medicationList.add(medicationItem);
                 }
 
@@ -185,7 +187,6 @@ public class Medication extends AppCompatActivity {
                     // Überprüfen , ob die Daten mit dem zu löschenden Element übereinstimmen
                     if (labelText.equals(itemToDelete.getLabel()) &&
                             titelText.equals(itemToDelete.getTitle()) &&
-                            dosageText.equals(itemToDelete.getDosage()) &&
                             einnahmeZeiten.equals(itemToDelete.getUsage())) {
 
                         // Hier löschen Sie das Element aus der Firebase-Datenbank
@@ -193,12 +194,12 @@ public class Medication extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
                                 if (task.isSuccessful()) {
-                                    Toast.makeText(Medication.this, "Medikation gelöscht", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(Medication.this, getString(R.string.medication_delete), Toast.LENGTH_SHORT).show();
                                 } else {
                                     // Falls das Löschen in der Datenbank fehlschlägt, fügen Sie das Element wieder zur Liste hinzu
                                     medicationList.remove(itemToDelete); // Entfernen Sie das Element aus der Liste
                                     adapter.notifyDataSetChanged(); // Benachrichtigen Sie den Adapter über die Änderung
-                                    Toast.makeText(Medication.this, "Fehler beim Löschen der Medikation", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(Medication.this, getString(R.string.error_deleting_medication), Toast.LENGTH_SHORT).show();
                                 }
                             }
                         });

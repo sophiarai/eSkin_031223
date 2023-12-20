@@ -23,6 +23,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -30,12 +31,16 @@ import com.google.firebase.storage.UploadTask;
 
 import java.text.DateFormat;
 import java.util.Calendar;
+import android.os.Bundle;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 
 public class UploadActivity extends AppCompatActivity {
-
+DatabaseReference databaseReference;
     ImageView uploadImage;
     Button saveButton;
-    EditText uploadTopic, uploadDesc, uploadLang;
+    EditText uploadDesc, uploadLang;
+    Spinner uploadTopic;
     String imageURL;
     Uri uri;
 
@@ -49,6 +54,17 @@ public class UploadActivity extends AppCompatActivity {
         uploadTopic = findViewById(R.id.uploadTopic);
         uploadLang = findViewById(R.id.uploadLang);
         saveButton = findViewById(R.id.saveButton);
+                                                                                // war vorher Wound
+        databaseReference=FirebaseDatabase.getInstance().getReference("Wound");
+
+        // Daten für das Dropdown-Menü
+        String[] hauterkrankungen = {"Akne", "Neurodermitis", "Schuppenflechte", "Muttermal", "Rosazea", "Hautkrebs", "Ekzeme", "Warzen","Nesselsucht", "Hautpilzinfektionen", "Scapies",  "Andere"};
+
+        // Adapter für den Spinner erstellen
+        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, hauterkrankungen);
+        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // Adapter an den Spinner binden
+        uploadTopic.setAdapter(spinnerAdapter);
 
         ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
@@ -84,7 +100,6 @@ public class UploadActivity extends AppCompatActivity {
     }
 
     public void saveData(){
-
         StorageReference storageReference = FirebaseStorage.getInstance().getReference().child("Android Images")
                 .child(uri.getLastPathSegment());
 
@@ -97,7 +112,6 @@ public class UploadActivity extends AppCompatActivity {
         storageReference.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-
                 Task<Uri> uriTask = taskSnapshot.getStorage().getDownloadUrl();
                 while (!uriTask.isComplete());
                 Uri urlImage = uriTask.getResult();
@@ -114,21 +128,19 @@ public class UploadActivity extends AppCompatActivity {
     }
 
     public void uploadData(){
-
-        String title = uploadTopic.getText().toString();
+        String title = uploadTopic.getSelectedItem().toString();
         String desc = uploadDesc.getText().toString();
         String lang = uploadLang.getText().toString();
 
         DataClass dataClass = new DataClass(title, desc, lang, imageURL);
 
-        //We are changing the child from title to currentDate,
-        // because we will be updating title as well and it may affect child value.
-
+        // Hier die Daten in die Realtime Database speichern
         String currentDate = DateFormat.getDateTimeInstance().format(Calendar.getInstance().getTime());
         currentDate = currentDate.replace(".", "-");
 
-        FirebaseDatabase.getInstance().getReference("Android Tutorials").child(currentDate)
-                .setValue(dataClass).addOnCompleteListener(new OnCompleteListener<Void>() {
+        databaseReference.child(currentDate)
+                .setValue(dataClass)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()){

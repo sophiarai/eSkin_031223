@@ -1,12 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">MediScanner_Firebase</string>
     <string name="medication">Medikation</string>
     <string name="overview_medication">Überblick Medikamente</string>
     <string name="camera">Kamera</string>
     <string name="gallery">Gallerie</string>
-    <string name="label">Firma</string>
-    <string name="title">Titel</string>
+    <string name="label">Firmenname eingeben</string>
+    <string name="title">Medikamentname eingeben</string>
     <string name="dosage">Dosierung</string>
     <string name="intake">Einnahme</string>
+    <string name="wunddokumentation">Wunddokumentation</string>
+    <string name="calendar">Kalender</string>
+    <string name="language">Sprache</string>
+    <string name="description">Beschreibung</string>
+    <string name="willkommen_bei_eskin">Willkommen bei eSkin</string>
+    <string name="update_data">Update Daten</string>
+    <string name="enter_topic_name">Themenname eingeben</string>
+    <string name="enter_description">Beschreibung eingeben</string>
+    <string name="enter_language">Sprache eingeben</string>
+    <string name="upload_data">Daten hochladen</string>
+    <string name="save">Speichern</string>
+    <string name="loading">Laden...</string>
+    <string name="event">Ereignis</string>
+    <string name="ganztaegig">Ganztägig</string>
+    <string name="no_date_found">Keine Daten gefunden</string>
+    <string name="medication_delete">"Medikation gelöscht "</string>
+    <string name="error_deleting_medication">Fehler beim Löschen der Medikation</string>
+    <string name="pick_image_first">Wähle zuerst ein Bild aus</string>
+    <string name="no_image_selected">Kein Bild ausgewählt</string>
+    <string name="medication_saved_successfully">Meidkation erfolgreich gespeichert</string>
+    <string name="error_saving_medication">Fehler beim Speicher des Medikaments</string>
+    <string name="fill_out_field">Bitte füllen Sie Firmenname, Medikamentenname und mindestens eine Einnahmezeit aus</string>
 </resources>

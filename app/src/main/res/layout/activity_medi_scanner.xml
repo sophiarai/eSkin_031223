@@ -1,17 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="10dp"
-    tools:context=".Sophia.MediScanner"
-    >
-
+    android:orientation="vertical"
+    tools:context=".Christiane.UploadActivity">
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginStart="5dp"
+        app:cardCornerRadius="30dp"
+        app:cardElevation="20dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical" >
+        android:orientation="vertical"
+        android:background="@drawable/lavendar_border">
 
 
         <LinearLayout
@@ -28,6 +38,7 @@
                 android:textStyle="bold"
                 android:text="@string/camera"
                 android:layout_marginEnd="5dp"
+                android:layout_marginStart="20dp"
                 android:layout_weight="1"
                 tools:ignore="VisualLintButtonSize"
                 android:backgroundTint="@color/lavender"/>
@@ -38,6 +49,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/white"
                 android:textStyle="bold"
+                android:layout_marginEnd="20dp"
                 android:layout_weight="1"
                 android:layout_marginStart="5dp"
                 android:text="@string/gallery"
@@ -58,6 +70,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/scan"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
             android:textColor="@color/white"
             android:textStyle="bold"
             tools:ignore="VisualLintButtonSize"
@@ -66,7 +80,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_marginTop="20dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -75,51 +90,49 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="@style/TextAppearance.MaterialComponents.Body1"
-                    android:text="@string/label"
-                    android:textStyle="bold"/>
+
 
                 <EditText
                     android:id="@+id/label_Tv"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:hint="@string/label"
                     android:layout_weight="1"
-                    android:layout_marginLeft="47dp"
+                    android:background="@drawable/lavendar_border"
+                    android:importantForAccessibility="no"
                     android:textSize="20sp"
-                    android:importantForAccessibility="no"/>
+                    android:padding="16dp"
+                    tools:ignore="TouchTargetSizeCheck" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
+                android:layout_marginTop="10dp"
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="@style/TextAppearance.MaterialComponents.Body1"
-                    android:text="@string/title"
-                    android:textStyle="bold"/>
+
 
                 <EditText
                     android:id="@+id/titel_Tv"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:layout_marginLeft="52dp"
+                    android:hint="@string/title"
+                    android:background="@drawable/lavendar_border"
+                    android:importantForAccessibility="no"
                     android:textSize="20sp"
-                    android:importantForAccessibility="no"/>
+                    android:padding="16dp"
+                    tools:ignore="TouchTargetSizeCheck" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
+                android:layout_marginTop="10dp"
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp">
 
@@ -128,16 +141,19 @@
                     android:layout_height="wrap_content"
                     style="@style/TextAppearance.MaterialComponents.Body1"
                     android:text="@string/dosage"
+                    android:textColor="@color/white"
                     android:textStyle="bold"/>
 
                 <EditText
                     android:id="@+id/dosierung_Tv"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
                     android:layout_marginLeft="30dp"
+                    android:textColor="@color/white"
+                    android:layout_weight="1"
+                    android:importantForAccessibility="no"
                     android:textSize="20sp"
-                    android:importantForAccessibility="no"/>
+                    tools:ignore="TouchTargetSizeCheck" />
             </LinearLayout>
 
 
@@ -146,7 +162,6 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_marginStart="20dp"
-                android:layout_marginTop="40dp"
                 android:layout_marginEnd="20dp">
 
                 <TextView
@@ -178,6 +193,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+
                     android:hint="0"
                     android:minHeight="48dp"
                     tools:ignore="TouchTargetSizeCheck" />
@@ -231,32 +247,36 @@
             <!-- Ende des Abschnitts für MO, MI, AB und NA -->
 
         </LinearLayout>
+
         <Button
             android:id="@+id/button_hinzufügen"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="Speichern"
-            android:textColor="@color/white"
-            android:textStyle="bold"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="30dp"
-            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
             android:backgroundTint="@color/lavender"
-            />
+            android:text="@string/save"
+            android:textSize="18sp"
+            app:cornerRadius="20dp" />
+
         <com.google.android.material.button.MaterialButton
             android:id="@+id/backButton"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="5dp"
+            android:backgroundTint="@color/lavender"
             android:text="Zurück"
             android:textColor="@color/white"
             android:textStyle="bold"
             app:icon="@drawable/ic_back"
-            android:layout_marginTop="30dp"
-            android:backgroundTint="@color/lavender"
-            />
+            tools:ignore="TouchTargetSizeCheck" />
     </LinearLayout>
 
+    </androidx.cardview.widget.CardView>
 
 
 
-</ScrollView>
+
+</RelativeLayout>

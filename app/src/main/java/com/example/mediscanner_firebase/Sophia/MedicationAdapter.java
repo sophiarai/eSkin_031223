@@ -27,12 +27,12 @@ public class MedicationAdapter extends ArrayAdapter<MedicationItem> {
 
         TextView labelTextView = convertView.findViewById(R.id.labelTextView);
         TextView titleTextView = convertView.findViewById(R.id.titleTextView);
-        TextView dosageTextView = convertView.findViewById(R.id.dosageTextView);
+        //TextView dosageTextView = convertView.findViewById(R.id.dosageTextView);
         TextView usageTextView = convertView.findViewById(R.id.usageTextView);
 
         labelTextView.setText("Label: " + item.getLabel());
         titleTextView.setText("Title: " + item.getTitle());
-        dosageTextView.setText("Dosierung: " + item.getDosage());
+        //dosageTextView.setText("Dosierung: " + item.getDosage());
         usageTextView.setText("Einnahme: " + item.getUsage());
 
         return convertView;

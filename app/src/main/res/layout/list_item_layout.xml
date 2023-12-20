@@ -1,52 +1,58 @@
 <!-- list_item_layout.xml -->
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    app:cardBackgroundColor="@color/white"
+    app:strokeColor="@color/lavender"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="4dp">
 
-    <TextView
-        android:id="@+id/labelTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Label:"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="20dp" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/titleTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Title:"
-        android:layout_below="@id/labelTextView"
-        android:layout_marginStart="20dp" />
+        <TextView
+            android:id="@+id/labelTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/label"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="20dp" />
 
-    <TextView
-        android:id="@+id/dosageTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Dosage:"
-        android:layout_below="@id/titleTextView"
-        android:layout_marginStart="20dp" />
+        <TextView
+            android:id="@+id/titleTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/title"
+            android:layout_below="@id/labelTextView"
+            android:layout_marginStart="20dp" />
+        <TextView
+            android:id="@+id/usageTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/intake"
+            android:layout_below="@id/titleTextView"
+            android:layout_marginStart="20dp" />
 
-    <TextView
-        android:id="@+id/usageTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Usage:"
-        android:layout_below="@id/dosageTextView"
-        android:layout_marginStart="20dp" />
+        <!-- Weitere TextView-Elemente hier -->
 
-    <!-- Hier fügen Sie den "Löschen"-Button hinzu -->
-    <ImageButton
-        android:id="@+id/buttonDelete"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_centerVertical="true"
-        android:layout_marginEnd="20dp"
-        android:background="?android:attr/selectableItemBackgroundBorderless"
-        android:contentDescription="@string/app_name"
-        android:onClick="onDeleteButtonClick"
-        android:src="@drawable/ic_delete"
-        tools:ignore="TouchTargetSizeCheck" />
-</RelativeLayout>
+        <!-- Hier fügen Sie den "Löschen"-Button hinzu -->
+        <ImageButton
+            android:id="@+id/buttonDelete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="20dp"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/app_name"
+            android:onClick="onDeleteButtonClick"
+            android:src="@drawable/ic_delete"
+            tools:ignore="TouchTargetSizeCheck" />
+    </RelativeLayout>
+
+</com.google.android.material.card.MaterialCardView>
