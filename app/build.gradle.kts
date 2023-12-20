@@ -1,7 +1,6 @@
 plugins {
     id("com.android.application")
     id("com.google.gms.google-services")
-
 }
 
 android {
@@ -11,7 +10,7 @@ android {
     defaultConfig {
         applicationId = "com.example.mediscanner_firebase"
         minSdk = 26
-        targetSdk = 34
+        targetSdk = 33
         versionCode = 1
         versionName = "1.0"
 
@@ -46,8 +45,7 @@ dependencies {
     implementation("com.google.firebase:firebase-database:20.3.0")
     implementation("com.google.firebase:firebase-firestore:24.9.1")
     implementation("com.google.firebase:firebase-storage:20.3.0")
-    implementation ("com.google.mlkit:barcode-scanning:17.1.0")
-    implementation ("com.google.android.gms:play-services-mlkit-barcode-scanning:18.2.0")
+    implementation ("com.google.mlkit:barcode-scanning:17.2.0")
     implementation("com.google.android.gms:play-services-maps:18.2.0")
     implementation ("com.squareup.okhttp3:okhttp:4.9.1")
 
@@ -55,11 +53,4 @@ dependencies {
     implementation ("com.github.bumptech.glide:glide:4.14.2")
     annotationProcessor ("com.github.bumptech.glide:compiler:4.14.2")
     implementation ("com.github.clans:fab:1.6.4")
-
-    //Christiane
-    implementation(platform("com.google.firebase:firebase-bom:32.5.0"))
-    implementation ("com.google.firebase:firebase-messaging:23.3.1")
-
-
-
 }

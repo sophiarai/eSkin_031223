@@ -35,13 +35,13 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
-
+//Mainactivity
 //https://www.youtube.com/watch?v=DWIGAkYkpg8
 //https://androidknowledge.com/store-retrieve-image-firebase-android-studio/
 //handy muss ans internet angeschlossen sein !!!!
 
 //anbei die Zugangsdaten für den Google Account:
-//        Zugang:                                 rheumastop@gmail.com
+//Zugang:                                 rheumastop@gmail.com
 //Passwort:                            rheumastop123
 //Projekt "FERTIG" nehmen haha
 
