@@ -36,7 +36,8 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
 public class UploadActivity extends AppCompatActivity {
-DatabaseReference databaseReference;
+
+    DatabaseReference databaseReference;
     ImageView uploadImage;
     Button saveButton;
     EditText uploadDesc, uploadLang;
@@ -63,6 +64,7 @@ DatabaseReference databaseReference;
         // Adapter für den Spinner erstellen
         ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, hauterkrankungen);
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
         // Adapter an den Spinner binden
         uploadTopic.setAdapter(spinnerAdapter);
 

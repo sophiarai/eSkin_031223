@@ -35,17 +35,25 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
-//Mainactivity
-//https://www.youtube.com/watch?v=DWIGAkYkpg8
-//https://androidknowledge.com/store-retrieve-image-firebase-android-studio/
-//handy muss ans internet angeschlossen sein !!!!
 
-//anbei die Zugangsdaten für den Google Account:
-//Zugang:                                 rheumastop@gmail.com
-//Passwort:                            rheumastop123
-//Projekt "FERTIG" nehmen haha
+/**
+ * Die Klasse "Wound" ist eine Aktivität in einer Android-Anwendung, die Funktionalitäten für die Verwaltung von Wunddaten bereitstellt.
+ * Sie enthält Methoden und Implementierungen für die Benutzeroberfläche sowie die Interaktion mit einer Firebase-Datenbank.
+ */
 
 public class Wound extends AppCompatActivity {
+
+    /**
+     * @fab : Ein Floating Action Button (FAB), der eine Aktion zum Hochladen von Wunddaten auslöst.
+     * @databaseReference : Referenzobjekt für die Firebase-Datenbank.
+     * @eventListener : Event-Listener, der Änderungen in der Datenbank überwacht.
+     * @recyclerView : Eine RecyclerView zur Anzeige von Wunddaten.
+     * @dataList : Eine Liste von Objekten des Typs DataClass, die die Wunddaten enthält.
+     * @adapter : Ein benutzerdefinierter Adapter (MyAdapter) für die RecyclerView.
+     * @searchView : Ein Suchfeld für die Filterung von Wunddaten.
+     *
+     * Weitere Attribute repräsentieren verschiedene UI-Elemente wie DrawerLayout, ImageView, und LinearLayout für Menüoptionen.
+     */
     FloatingActionButton fab;
     DatabaseReference databaseReference;
     ValueEventListener eventListener;
@@ -58,10 +66,19 @@ public class Wound extends AppCompatActivity {
     ImageView menu;
     LinearLayout medication, maps, calendar,wound;
 
+    /**
+     * Die onCreate Methode initialisiert die UI-Komponenten.
+     * Setzt Layout-Manager für die RecyclerView und definiert einen Dialog für den Ladevorgang.
+     * Verknüpft die Datenbankreferenz mit dem entsprechenden Firebase-Pfad.
+     * Implementiert einen Event-Listener, um Daten aus der Datenbank abzurufen und die RecyclerView zu aktualisieren.
+     * Konfiguriert die Suchfunktionalität und definiert Ereignisse für verschiedene UI-Elemente.
+     */
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wound_docu);
+
         drawerLayout=findViewById(R.id.drawerLayout);
         medication=findViewById(R.id.mediscanner);
         maps=findViewById(R.id.maps);
@@ -69,6 +86,7 @@ public class Wound extends AppCompatActivity {
         calendar=findViewById(R.id.calendar);
         wound=findViewById(R.id.camera);
         recyclerView = findViewById(R.id.recyclerView);
+
         fab = findViewById(R.id.fab);
         searchView = findViewById(R.id.search);
         searchView.clearFocus();
@@ -82,12 +100,11 @@ public class Wound extends AppCompatActivity {
         AlertDialog dialog = builder.create();
         dialog.show();
 
-
         dataList = new ArrayList<>();
 
         adapter = new MyAdapter(Wound.this, dataList);
         recyclerView.setAdapter(adapter);
-                                                                                //vorher war Wound
+                                                                                //Weg zur Firebaseverknüpfung
         databaseReference = FirebaseDatabase.getInstance().getReference("Wound");
         dialog.show();
         eventListener = databaseReference.addValueEventListener(new ValueEventListener() {
@@ -131,11 +148,6 @@ public class Wound extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-
-
-
-
 
 
 
