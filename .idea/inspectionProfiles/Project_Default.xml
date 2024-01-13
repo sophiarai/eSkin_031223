@@ -1,0 +1,8 @@
+<component name="InspectionProjectProfileManager">
+  <profile version="1.0">
+    <option name="myName" value="Project Default" />
+    <inspection_tool class="JavadocDeclaration" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="ADDITIONAL_TAGS" value="fab,databaseReference,eventListener,recyclerView,dataList,adapter,searchView,eventListener:,recyclerView:,databaseReference:,databaseReference:,uploadImage:,uploadDesc:,uploadTopic:,uploadLang:,saveButton:,imageURL:,uri:,imageURL:,databaseReference:,updateImage:,updateImage:,key," />
+    </inspection_tool>
+  </profile>
+</component>

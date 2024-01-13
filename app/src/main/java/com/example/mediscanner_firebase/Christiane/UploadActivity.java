@@ -1,7 +1,6 @@
 package com.example.mediscanner_firebase.Christiane;
 
-import android.app.Activity;
-import android.app.AlertDialog;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -12,12 +11,6 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
-
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContract;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -34,7 +27,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class UploadActivity extends AppCompatActivity {
-DatabaseReference databaseReference;
+
     Button saveButton;
     EditText uploadEvent;
     Timestamp timestamp;
@@ -129,18 +122,8 @@ DatabaseReference databaseReference;
             String key = String.valueOf(selectedTimeMillis);
             FirebaseDatabase.getInstance().getReference("Calendar").child(key)
                     .setValue(dataClass)
-                    .addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            Toast.makeText(UploadActivity.this, "Saved", Toast.LENGTH_LONG).show();
-                        }
-                    })
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(UploadActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
-                        }
-                    });
+                    .addOnCompleteListener(task -> Toast.makeText(UploadActivity.this, "Saved", Toast.LENGTH_LONG).show())
+                    .addOnFailureListener(e -> Toast.makeText(UploadActivity.this, e.getMessage(), Toast.LENGTH_LONG).show());
         } else {
             DataClass dataClass = new DataClass(timestampMillis, 0, event);
             //String key = String.valueOf(timestampMillis);
@@ -161,4 +144,6 @@ DatabaseReference databaseReference;
                         }
                     });
         }
-    }}
+    }
+
+}

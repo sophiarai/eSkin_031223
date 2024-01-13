@@ -35,8 +35,33 @@ import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
+
+/**
+ *
+ * Diese Klasse ist verantwortlich für das Hochladen von Bildern und assoziierten Informationen in Firebase.
+ * Sie handhabt die Interaktion mit der Benutzeroberfläche und ermöglicht es Benutzern, relevante Daten in der App zu speichern.
+ *
+ * Funktionalitäten:
+ * Auswahl und Anzeige von Bildern aus der Galerie.
+ * Speichern von Bildern und dazugehörigen Details in Firebase Storage und Realtime Database.
+ * Verwendung eines Spinners für die Auswahl von Hauterkrankungen.
+ *
+ */
+
 public class UploadActivity extends AppCompatActivity {
-DatabaseReference databaseReference;
+    /**
+     * @databaseReference: Referenzobjekt für die Firebase-Datenbank.
+     * @uploadImage: Ein ImageView-Element zur Anzeige des ausgewählten Bildes.
+     * @uploadDesc: Ein EditText-Feld für die Eingabe von Beschreibungen.
+     * @uploadTopic: Ein Spinner zur Auswahl des Themas für das hochgeladene Bild.
+     * @uploadLang: Ein EditText-Feld für die Eingabe von zusätzlichen Details oder der Sprache.
+     * @saveButton: Ein Button zur Auslösung des Speichervorgangs.
+     * @imageURL: Eine Zeichenfolge, die die URL des hochgeladenen Bildes enthält.
+     * @uri: Ein Uri-Objekt, das auf das ausgewählte Bild verweist.
+     *
+     */
+
+    DatabaseReference databaseReference;
     ImageView uploadImage;
     Button saveButton;
     EditText uploadDesc, uploadLang;
@@ -44,6 +69,15 @@ DatabaseReference databaseReference;
     String imageURL;
     Uri uri;
 
+
+    /**
+     * onCreate(Bundle savedInstanceState)
+     * Initialisiert die UI-Elemente und verknüpft sie mit den entsprechenden Ansichten.
+     * Definiert einen Dropdown-Adapter für den Spinner zur Auswahl von Hauterkrankungen.
+     * Implementiert die Bildauswahl über die Galerie des Geräts.
+     * Definiert den OnClickListener für den Speicherbutton.
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,7 +88,7 @@ DatabaseReference databaseReference;
         uploadTopic = findViewById(R.id.uploadTopic);
         uploadLang = findViewById(R.id.uploadLang);
         saveButton = findViewById(R.id.saveButton);
-
+                                                                                // war vorher Wound
         databaseReference=FirebaseDatabase.getInstance().getReference("Wound");
 
         // Daten für das Dropdown-Menü
@@ -63,6 +97,7 @@ DatabaseReference databaseReference;
         // Adapter für den Spinner erstellen
         ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, hauterkrankungen);
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
         // Adapter an den Spinner binden
         uploadTopic.setAdapter(spinnerAdapter);
 
@@ -99,6 +134,14 @@ DatabaseReference databaseReference;
         });
     }
 
+
+    /**
+     * saveData()-Methode
+     * Speichert das ausgewählte Bild in Firebase Storage.
+     * Zeigt einen Fortschrittsdialog während des Speichervorgangs an.
+     * Speichert die URL des hochgeladenen Bildes und ruft uploadData() auf.
+     */
+
     public void saveData(){
         StorageReference storageReference = FirebaseStorage.getInstance().getReference().child("Android Images")
                 .child(uri.getLastPathSegment());
@@ -126,6 +169,13 @@ DatabaseReference databaseReference;
             }
         });
     }
+
+    /**
+     * uploadData()-Methode
+     * Extrahiert die ausgewählten Daten wie Titel, Beschreibung, Sprache und Bild-URL.
+     * Erstellt ein Objekt vom Typ DataClass mit den gesammelten Daten.
+     * Speichert die Daten in der Firebase-Echtzeitdatenbank mit einem eindeutigen Zeitstempel als Schlüssel.
+     */
 
     public void uploadData(){
         String title = uploadTopic.getSelectedItem().toString();

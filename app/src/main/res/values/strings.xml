@@ -5,8 +5,8 @@
     <string name="camera">Camera</string>
     <string name="gallery">Gallery</string>
     <string name="scan" translatable="false">Scan</string>
-    <string name="label">Label</string>
-    <string name="title">Title</string>
+    <string name="label">Enter company name</string>
+    <string name="title">Enter medication name</string>
     <string name="dosage">Dosage</string>
     <string name="intake">Intake</string>
     <string name="wunddokumentation">Wound documentation</string>
@@ -26,4 +26,11 @@
     <string name="event">Event</string>
     <string name="ganztaegig">All-day</string>
     <string name="no_date_found">No Date found</string>
+    <string name="medication_delete">Medication cleared\n</string>
+    <string name="error_deleting_medication">Error deleting medication</string>
+    <string name="pick_image_first">Pick image first</string>
+    <string name="no_image_selected">No image selected</string>
+    <string name="medication_saved_successfully">Medication saved successfully</string>
+    <string name="error_saving_medication">Error saving medication</string>
+    <string name="fill_out_field"><![CDATA[Please fill out label, title & at least one intake time]]></string>
 </resources>

@@ -32,7 +32,33 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+/**
+ * Die Klasse "UpdateActivity" ermöglicht es Benutzern, vorhandene Datensätze zu bearbeiten und in der App zu aktualisieren.
+ * Sie ist eng mit der Firebase-Datenbank und dem Storage verbunden, um die Aktualisierung von Daten und Bildern zu ermöglichen
+ *
+ * Funktionalitäten:
+ * Auswahl und Anzeige von vorhandenen Bildern für die Aktualisierung.
+ * Bearbeitung und Speicherung von aktualisierten Daten in der Firebase-Echtzeitdatenbank.
+ * Löschen des alten Bildes aus Firebase Storage nach erfolgreicher Aktualisierung.
+ */
+
 public class UpdateActivity extends AppCompatActivity {
+
+    /**
+     * @updateImage: Ein ImageView-Element zur Anzeige des ausgewählten Bildes für die Aktualisierung.
+     * @updateButton: Ein Button zur Auslösung des Aktualisierungsvorgangs.
+     * @updateDesc: Ein EditText-Feld für die Bearbeitung von Beschreibungen.
+     * @updateLang: Ein EditText-Feld für die Bearbeitung von zusätzlichen Details oder der Sprache.
+     * @updateTitle: Ein Spinner zur Auswahl des aktualisierten Themas.
+     * @title, @desc, @lang: Zeichenfolgen zur Zwischenspeicherung von Daten für die Aktualisierung.
+     * @imageUrl: Eine Zeichenfolge, die die URL des aktualisierten Bildes enthält.
+     * @key, @oldImageURL: Zeichenfolgen, die den Schlüssel und die alte Bild-URL des zu aktualisierenden Datensatzes speichern.
+     * @uri: Ein Uri-Objekt, das auf das ausgewählte Bild für die Aktualisierung verweist.
+     * @databaseReference: Referenzobjekt für die Firebase-Datenbank.
+     * @storageReference: Referenzobjekt für Firebase Storage.
+     *
+     */
+
 
     ImageView updateImage;
     Button updateButton;
@@ -45,6 +71,15 @@ public class UpdateActivity extends AppCompatActivity {
     DatabaseReference databaseReference;
     StorageReference storageReference;
 
+
+    /**
+     * onCreate(Bundle savedInstanceState) - Methode
+     * Initialisiert die UI-Elemente und verknüpft sie mit den entsprechenden Ansichten.
+     * Definiert einen Dropdown-Adapter für den Spinner zur Auswahl von Hauterkrankungen.
+     * Implementiert die Bildauswahl über die Galerie des Geräts.
+     * Extrahiert Daten des zu aktualisierenden Datensatzes und zeigt sie in den entsprechenden UI-Elementen an
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -89,7 +124,8 @@ public class UpdateActivity extends AppCompatActivity {
             key = bundle.getString("Key");
             oldImageURL = bundle.getString("Image");
         }
-        databaseReference = FirebaseDatabase.getInstance().getReference("Android Tutorials").child(key);
+                                                                                //Wound
+        databaseReference = FirebaseDatabase.getInstance().getReference("Wound").child(key);
 
         updateImage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -108,6 +144,14 @@ public class UpdateActivity extends AppCompatActivity {
             }
         });
     }
+
+    /**
+     * saveData()-methode
+     * Speichert das ausgewählte Bild in Firebase Storage.
+     * Zeigt einen Fortschrittsdialog während des Speichervorgangs an.
+     * Speichert die URL des aktualisierten Bildes und ruft updateData() auf.
+     */
+
     public void saveData(){
         //DA IS IRG A FEHLERMELDUNG
 
@@ -136,9 +180,15 @@ public class UpdateActivity extends AppCompatActivity {
             }
         });
 
-
-
     }
+
+    /**
+     * updateData()-methode
+     * Extrahiert die aktualisierten Daten wie Titel, Beschreibung, Sprache und Bild-URL.
+     * Aktualisiert den Datensatz in der Firebase-Echtzeitdatenbank.
+     * Löscht das alte Bild aus Firebase Storage.
+     * Zeigt eine Erfolgsmeldung an und beendet die Aktivität nach erfolgreicher Aktualisierung.
+     */
     public void updateData(){
         title = updateTitle.getSelectedItem().toString().trim();
         desc = updateDesc.getText().toString().trim();

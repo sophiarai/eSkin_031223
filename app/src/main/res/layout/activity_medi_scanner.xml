@@ -10,7 +10,7 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="5dp"
         android:layout_marginStart="5dp"
         app:cardCornerRadius="30dp"
@@ -90,18 +90,13 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="@style/TextAppearance.MaterialComponents.Body1"
-                    android:text="@string/label"
-                    android:textStyle="bold"/>
+
 
                 <EditText
                     android:id="@+id/label_Tv"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:layout_marginLeft="47dp"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/label"
                     android:layout_weight="1"
                     android:background="@drawable/lavendar_border"
                     android:importantForAccessibility="no"
@@ -118,19 +113,14 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="@style/TextAppearance.MaterialComponents.Body1"
-                    android:text="@string/title"
-                    android:textStyle="bold"/>
+
 
                 <EditText
                     android:id="@+id/titel_Tv"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:layout_marginLeft="57dp"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:hint="@string/title"
                     android:background="@drawable/lavendar_border"
                     android:importantForAccessibility="no"
                     android:textSize="20sp"

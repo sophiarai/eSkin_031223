@@ -4,8 +4,8 @@
     <string name="overview_medication">Überblick Medikamente</string>
     <string name="camera">Kamera</string>
     <string name="gallery">Gallerie</string>
-    <string name="label">Firma</string>
-    <string name="title">Titel</string>
+    <string name="label">Firmenname eingeben</string>
+    <string name="title">Medikamentname eingeben</string>
     <string name="dosage">Dosierung</string>
     <string name="intake">Einnahme</string>
     <string name="wunddokumentation">Wunddokumentation</string>
@@ -23,4 +23,11 @@
     <string name="event">Ereignis</string>
     <string name="ganztaegig">Ganztägig</string>
     <string name="no_date_found">Keine Daten gefunden</string>
+    <string name="medication_delete">"Medikation gelöscht "</string>
+    <string name="error_deleting_medication">Fehler beim Löschen der Medikation</string>
+    <string name="pick_image_first">Wähle zuerst ein Bild aus</string>
+    <string name="no_image_selected">Kein Bild ausgewählt</string>
+    <string name="medication_saved_successfully">Meidkation erfolgreich gespeichert</string>
+    <string name="error_saving_medication">Fehler beim Speicher des Medikaments</string>
+    <string name="fill_out_field">Bitte füllen Sie Firmenname, Medikamentenname und mindestens eine Einnahmezeit aus</string>
 </resources>
